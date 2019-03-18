@@ -6,14 +6,14 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 16:54:37 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/02/16 10:23:33 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/03/12 01:26:33 by aguiot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# define BUFF_SIZE 130
+# define BUFF_SIZE 4096
 
 # include <fcntl.h>
 # include <unistd.h>
@@ -29,6 +29,6 @@ struct			s_gnl_file
 	t_gnl_file	*next;
 };
 
-int				get_next_line(const int fd, char **line);
+int	get_next_line(const int fd, char **line);
 
 #endif

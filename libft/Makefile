@@ -6,7 +6,7 @@
 #    By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/18 16:51:51 by aguiot--          #+#    #+#              #
-#    Updated: 2019/03/01 20:34:32 by aguiot           ###   ########.fr        #
+#    Updated: 2019/03/14 11:51:05 by aguiot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,9 @@ NAME		= libft.a
 CC			= gcc
 
 # Compiler & Preprocessor flags
-CFLAGS		+= -Wall -Werror -Wextra
+CFLAGS		+= -Wall -Werror -Wextra -g3
 CPPFLAGS    += -I include/
+MAKEFLAGS	+= --no-print-directory
 
 # Take care of headers/Makefile changes
 DEPS		= include/libft.h include/get_next_line.h Makefile
@@ -56,7 +57,7 @@ SRC_NAME	= \
 			ft_list_map			ft_list_new			ft_list_size		\
 			ft_list_push_at		ft_list_push_back	ft_list_push_front	\
 			ft_list_pop_at		ft_list_pop_back	ft_list_pop_front	\
-			ft_list_sort
+			ft_list_sort		ft_strjoinfree
 			
 # Object files
 OBJ_PATH	= obj/

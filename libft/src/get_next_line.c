@@ -6,81 +6,44 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 18:51:58 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/02/16 10:34:06 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/03/14 11:50:31 by aguiot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include "libft.h"
 
-static t_gnl_file	*get_fd_file(t_gnl_file **files, int fd)
+int			ft_verif_line(char **line)
 {
-	t_gnl_file			*file;
-
-	file = *files;
-	while (file)
-	{
-		if ((int)file->fd == fd)
-			return (file);
-		file = file->next;
-	}
-	file = (t_gnl_file*)malloc(sizeof(t_gnl_file));
-	file->remainder = "";
-	file->fd = fd;
-	file->tmp = file->remainder;
-	file->next = *files;
-	*files = file;
-	return (file);
+	if (!**line)
+		free(*line);
+	return ((**line) ? 1 : 0);
 }
 
-static int			check_errors(int fd, char **line, char *buff)
+int			get_next_line(const int fd, char **line)
 {
-	if (fd < 0 || line == NULL || read(fd, buff, 0) < 0
-		|| ((*line = ft_strnew(0)) == NULL))
+	static char		gnl[BUFF_SIZE];
+	char			*separator;
+	int				nb_read;
+	int				position;
+
+	if (fd < 0 || !line || read(fd, gnl, 0) < 0 ||
+			BUFF_SIZE < 1 || !(*line = ft_strnew(0)))
 		return (-1);
-	return (0);
-}
-
-static void			read_line(int *ret, int fd, char *buff, t_gnl_file **file)
-{
-	char				*tmp;
-	int					time;
-
-	time = 1;
-	while ((*ret = read(fd, buff, BUFF_SIZE)))
+	while (1)
 	{
-		buff[*ret] = '\0';
-		tmp = (*file)->remainder;
-		(*file)->remainder = ft_strjoin((*file)->remainder, buff);
-		if (time > 1)
-			free(tmp);
-		++time;
-		if (ft_strchr((*file)->remainder, '\n'))
-			break ;
+		if ((separator = ft_strchr(gnl, '\n')))
+		{
+			position = (ft_strlen(gnl) - (ft_strlen(separator)));
+			*line = ft_strjoinfree(*line, gnl, position);
+			ft_strncpy(gnl, &gnl[position + 1], BUFF_SIZE - position);
+			return (1);
+		}
+		*line = ft_strjoinfree(*line, gnl, BUFF_SIZE);
+		nb_read = read(fd, gnl, BUFF_SIZE);
+		gnl[nb_read] = '\0';
+		if (!nb_read)
+			return (ft_verif_line(line));
 	}
 }
 
-int					get_next_line(const int fd, char **line)
-{
-	static t_gnl_file	*files;
-	t_gnl_file			*file;
-	char				buff[BUFF_SIZE + 1];
-	int					ret;
-	size_t				offset;
-
-	if (check_errors(fd, line, buff) == -1)
-		return (-1);
-	file = get_fd_file(&files, fd);
-	free(*line);
-	read_line(&ret, fd, buff, &file);
-	if (ret < BUFF_SIZE && ft_strlen(file->remainder) == 0)
-		return (0);
-	offset = ft_str_copy_to(line, file->remainder, '\n');
-	if (offset++ < ft_strlen(file->remainder))
-	{
-		file->tmp = file->remainder;
-		file->remainder += offset;
-	}
-	else
-		ft_strclr(file->remainder);
-	return (1);
-}
