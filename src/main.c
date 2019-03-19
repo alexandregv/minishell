@@ -1,143 +1,148 @@
 #include "minishell.h"
 
-#define STDIN 0
-
-void	ft_print_word_table(char **words)
+static int		display_sig(int ret)
 {
-	if (words == NULL)
-		return ;
-	while (*words)
-		ft_putendl(*words++);
-}
-
-void	ft_free_word_table(char **words)
-{
-	char	**ptr;
-	
-	if (words == NULL)
-		return ;
-	ptr = words;
-	while (*words)
-		free(*words++);
-	free(ptr);
-}
-
-int		count_words(char *str, int delim)
-{
-	int		count;
-
-	count = 0;
-	while (*str)
+	if (WIFEXITED(ret))
 	{
-		while (*str && *str == delim)
-			++str;
-		if (*str && *str != delim)
-		{
-			count++;
-			while (*str && *str != delim)
-				++str;
-		}
-	}
-	return (count);
-}
-
-char	*malloc_word(char *str, int delim)
-{
-	char	*word;
-	int		i;
-	
-	i = 0;
-	while (str[i] && str[i] != delim)
-		++i;
-	word = (char *)malloc(sizeof(char) * (i + 1));
-	i = 0;
-	while (str[i] && str[i] != delim)
-	{
-		word[i] = str[i];
-		++i;
-	}
-	word[i] = '\0';
-	return (word);
-}
-
-char	**ft_split(char *str, int delim)
-{
-	int		words;
-	char	**tab;
-	int		i;
-
-	words = count_words(str, delim);
-	tab = (char **)malloc(sizeof(char*) * (words + 1));
-	i = 0;
-	while (*str)
-	{
-		while (*str && *str == delim)
-			++str;
-		if (*str && *str != delim)
-		{
-			tab[i] = malloc_word(str, delim);
-			++i;
-			while (*str && *str != delim)
-				++str;
-		}
-	}
-	tab[i] = NULL;
-	return (tab);
-}
-
-int	prompt(void)
-{
-	char	buff[4096 + 1];
-	char	*buffptr;
-	
-	getcwd(buff, 4096);
-	if (!(buffptr = ft_strchr(buff, '~')))
-		buffptr = buff;
-	ft_putstr(buffptr); //TODO: replace $HOME by '~'
-	ft_putstr(" $>");
-	return (1);
-}
-
-char	**parse_path(char **env)
-{
-	char	**path;
-
-	while (*env)
-	{
-		if (!ft_strncmp(*env, "PATH", 4))
-		{
-			path = ft_split(*env, ':');
-			//*path += 5;
-			return (path);
-		}
+		if (WEXITSTATUS(ret) == EXIT_SUCCESS)
+			ft_putendl_fd("OK", 0);
 		else
-			++env;
+			ft_putendl_fd("KO", 1);
+		return ((WEXITSTATUS(ret) == EXIT_SUCCESS) ? 0 : -1);
+	}
+	else if (WIFSIGNALED(ret))
+	{
+		if (WTERMSIG(ret) == SIGBUS)
+			ft_putendl_fd("Bus Error", 1);
+		else if (WTERMSIG(ret) == SIGSEGV)
+			ft_putendl_fd("Seg Fault", 1);
+		else if (WTERMSIG(ret) == SIGQUIT)
+			ft_putendl_fd("Quitted", 1);
+		else if (WTERMSIG(ret) == SIGFPE)
+			ft_putendl_fd("Floating Point Exception", 1);
+		else if (WTERMSIG(ret) == SIGALRM)
+			ft_putendl_fd("Timed out", 1);
+		else if (WTERMSIG(ret) == SIGABRT)
+			ft_putendl_fd("Aborted", 1);
+	}
+	return (-1);
+}
+
+char	*from_path(char **path, char *file)
+{
+	char	*fullpath;
+	char	**ptr;
+	int		in;
+
+	ptr = path;
+	in = 0;
+	while (*path)
+	{
+		fullpath = ft_strjoin3(*path, "/", file);
+		if (access(fullpath, F_OK) == 0)
+			return (fullpath);
+		++path;
+		++in;
+		free(fullpath);
 	}
 	return (NULL);
+}
+
+int	exec_cmd(char **path, char **argv, char **env)
+{
+	pid_t	pid;
+	int		ret;
+	char	*fullpath;
+
+	if (access(argv[0], F_OK) == 0)
+		fullpath = ft_strdup(argv[0]);
+	else if (!(fullpath = from_path(path, argv[0])))
+	{
+		fullpath = ft_strjoin("minishell: command not found: ", argv[0]);
+		ft_putendl(fullpath);
+		free(fullpath);
+		return (-1);
+	}
+	ret = 0;
+	pid = fork();
+	if (pid < 0)
+		ft_die("fork() failed, please check max process limits", -1);
+	if (pid > 0)
+	{
+		wait(&ret);
+		return (display_sig(ret));
+	}
+	else if (pid == 0)
+	{
+		//execve("/bin/ls", (char *[]) {"ls", "-l", "-G", NULL}, env);
+		ret = execve(fullpath, argv, env);
+		free(fullpath);
+		exit(ret);
+	}
+	return (0);
+}
+
+void	print_node(t_dlist *node)
+{
+	ft_putendl(node->content);
+}
+
+int		check_builtins(char **path, char **argv, char **env)
+{
+	int		ret;
+
+	ret = 0;
+	if (!ft_strcmp(argv[0], "echo"))
+		return (echo_builtin(argv, env));
+	else if (!ft_strcmp(argv[0], "cd"))
+		return (cd_builtin(argv, env));
+	else if (!ft_strcmp(argv[0], "setenv"))
+		return (setenv_builtin(argv, &env));
+	else if (!ft_strcmp(argv[0], "unsetenv"))
+		return (unsetenv_builtin(argv, env));
+	else if (!ft_strcmp(argv[0], "env"))
+		return (env_builtin(argv, env));
+	else if (!ft_strcmp(argv[0], "exit"))
+		return (exit_builtin(argv, env));
+	else if (!ft_strcmp(argv[0], "where"))
+		return (where_builtin(path, argv, env));
+	return (-42);
 }
 
 int		main(int ac, char **av, char **env)
 {
 	char	*line;
+	char	**parsed_argv;
 	char	**path;
+	int		ret;
+	t_dlist	*cmds;
 
-	while(prompt() && get_next_line(STDIN, &line))
+	env = init_env(env);
+	//ft_print_word_table(env);
+	cmds = NULL;
+	while(prompt(env) && get_next_line(0, &line))
 	{
-		path = parse_path(env);
-		ft_print_word_table(path);
-		//free(*path - 5);
-		ft_free_word_table(path);
-		if(!ft_strcmp(line, "exit"))
-		{
-			free(line);
-			break ;
-		}
-		ft_putendl(line);
+		if (!*line)
+			continue ;
+		ft_dlist_push_back(&cmds, ft_dlist_new(line, ft_strlen(line) + 1, 1));
+		if (!(path = ft_parse_path(env)))
+			return (EXIT_FAILURE);
+
+		parsed_argv = ft_split(line, ' ');
+		if ((ret = check_builtins(path, parsed_argv, env)) == -42)
+			ret = exec_cmd(path, parsed_argv, env);
+		ft_putchar('[');
+		ft_putnbr(ret);
+		ft_putstr("] ");
+
 		free(line);
+		*path -= 5;
+		ft_free_word_table(path);
 	}
+	//ft_dlist_iter(list, print_node, 0);
+	ft_dlist_del(&cmds, NULL);
 
 	(void)ac;
 	(void)av;
-	(void)env;
 	return (0);
 }

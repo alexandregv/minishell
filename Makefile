@@ -6,7 +6,7 @@
 #    By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/01 20:31:11 by aguiot--          #+#    #+#              #
-#    Updated: 2019/03/11 21:02:55 by aguiot           ###   ########.fr        #
+#    Updated: 2019/03/19 18:15:20 by aguiot--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME		= minishell
 CC			= gcc
 
 # Compiler & Preprocessor flags
-CFLAGS		+= -Wall -Werror -Wextra -g3
+CFLAGS		+= -Wall -Werror -Wextra
 CPPFLAGS	+= -I include/ -I libft/include/
 MAKEFLAGS	+= --no-print-directory
 
@@ -24,7 +24,8 @@ DEPS		= $(HEADERS) Makefile libft/Makefile
 
 # Source files
 SRC_PATH	= src/
-SRC_NAME	= main
+SRC_NAME	= main env echo_builtin cd_builtin env_builtin exit_builtin	\
+			  where_builtin prompt
 
 # Object files
 OBJ_PATH	= obj/
@@ -90,6 +91,6 @@ fclean: clean
 re: fclean all
 
 norm:
-	@norminette | $(GREP) -v "Not a valid file" | $(GREP) "Error\|Warning" -B 1
+	@norminette | $(GREP) -v "Not a valid file" | $(GREP) "Error\|Warning" -B 1 || true
 
 .PHONY: clean fclean all re norm
