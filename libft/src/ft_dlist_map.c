@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_list_get_index.c                                :+:      :+:    :+:   */
+/*   ft_dlist_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/16 18:06:49 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/19 05:39:50 by aguiot--         ###   ########.fr       */
+/*   Created: 2019/02/16 18:09:57 by aguiot--          #+#    #+#             */
+/*   Updated: 2019/03/19 06:05:48 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-ssize_t	ft_list_get_index(t_list *head, t_list *node)
+t_dlist	*ft_dlist_map(t_dlist *head, t_dlist *(*f)(t_dlist *node))
 {
-	t_list	*temp;
-	ssize_t	index;
+	t_dlist	*mapped;
 
-	index = 0;
-	temp = head;
-	while (temp)
+	if (head)
 	{
-		if (temp == node)
-			return (index);
-		temp = temp->next;
-		++index;
+		mapped = f(head);
+		mapped->next = ft_dlist_map(head->next, f);
+		return (mapped);
 	}
-	return (-1);
+	return (NULL);
 }

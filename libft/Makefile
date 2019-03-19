@@ -6,7 +6,7 @@
 #    By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/18 16:51:51 by aguiot--          #+#    #+#              #
-#    Updated: 2019/03/14 11:51:05 by aguiot           ###   ########.fr        #
+#    Updated: 2019/03/19 12:03:07 by aguiot--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME		= libft.a
 CC			= gcc
 
 # Compiler & Preprocessor flags
-CFLAGS		+= -Wall -Werror -Wextra -g3
+CFLAGS		+= -Wall -Werror -Wextra
 CPPFLAGS    += -I include/
 MAKEFLAGS	+= --no-print-directory
 
@@ -52,13 +52,60 @@ SRC_NAME	= \
 			ft_isascii			ft_strcasestr		ft_sort_table		\
 			ft_tolower			ft_strcasecmp		get_next_line		\
 			ft_toupper			ft_strndup			ft_list_rev			\
-			ft_list_del			ft_list_del_at		ft_list_del_node	\
-			ft_list_get_at		ft_list_get_index	ft_list_iter		\
-			ft_list_map			ft_list_new			ft_list_size		\
-			ft_list_push_at		ft_list_push_back	ft_list_push_front	\
-			ft_list_pop_at		ft_list_pop_back	ft_list_pop_front	\
-			ft_list_sort		ft_strjoinfree
-			
+			ft_int_tab			ft_sizet_tab		ft_split			\
+			ft_free_word_table	ft_print_word_table	ft_strjoinfree		\
+			ft_dlist_del		\
+			ft_dlist_del_at		\
+			ft_dlist_del_node	\
+			ft_dlist_first		\
+			ft_dlist_get_at		\
+			ft_dlist_get_index	\
+			ft_dlist_iter		\
+			ft_dlist_last		\
+			ft_dlist_map		\
+			ft_dlist_msort		\
+			ft_dlist_new		\
+			ft_dlist_pop_at		\
+			ft_dlist_pop_back	\
+			ft_dlist_pop_front	\
+			ft_dlist_push_at	\
+			ft_dlist_push_back	\
+			ft_dlist_push_front	\
+			ft_dlist_rev		\
+			ft_dlist_size		\
+			ft_list_del			\
+			ft_list_del_at		\
+			ft_list_del_node	\
+			ft_list_get_at		\
+			ft_list_get_index	\
+			ft_list_iter		\
+			ft_list_last		\
+			ft_list_map			\
+			ft_list_new			\
+			ft_list_pop_at		\
+			ft_list_pop_back	\
+			ft_list_pop_front	\
+			ft_list_push_at		\
+			ft_list_push_back	\
+			ft_list_push_front	\
+			ft_list_rev			\
+			ft_list_size		\
+			ft_join_table		\
+			ft_strjoin3			\
+			ft_strjoin4
+
+#			ft_dlist_get_at		ft_dlist_get_index	ft_dlist_iter		\
+#			ft_dlist_last		ft_dlist_msort		ft_dlist_new		\
+#			ft_dlist_pop_at		ft_dlist_pop_back	ft_dlist_pop_front	\
+#			ft_dlist_push_at	ft_dlist_push_back	ft_dlist_push_front	\
+#			ft_dlist_rev		ft_dlist_size		ft_list_del			\
+#			ft_list_del_at		ft_list_del_node	ft_list_get_at		\
+#			ft_list_get_index	ft_list_iter		ft_list_last		\
+#			ft_list_map			ft_list_new			ft_list_pop_at		\
+#			ft_list_pop_back	ft_list_pop_front	ft_list_push_at		\
+#			ft_list_push_back	ft_list_push_front	ft_list_rev			\
+#			ft_list_size		ft_dlist_del_node	ft_dlist_del
+
 # Object files
 OBJ_PATH	= obj/
 OBJ_NAME	= $(addsuffix .o, $(SRC_NAME))

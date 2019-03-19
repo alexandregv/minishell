@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_list_get_index.c                                :+:      :+:    :+:   */
+/*   ft_dlist_del_node.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/16 18:06:49 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/19 05:39:50 by aguiot--         ###   ########.fr       */
+/*   Created: 2019/02/16 18:08:33 by aguiot--          #+#    #+#             */
+/*   Updated: 2019/03/19 05:42:50 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-ssize_t	ft_list_get_index(t_list *head, t_list *node)
+void	ft_dlist_del_node(t_dlist **node, void (*del)(void *, size_t))
 {
-	t_list	*temp;
-	ssize_t	index;
-
-	index = 0;
-	temp = head;
-	while (temp)
-	{
-		if (temp == node)
-			return (index);
-		temp = temp->next;
-		++index;
-	}
-	return (-1);
+	if (del)
+		del((*node)->content, (*node)->content_size);
+	free((*node)->content);
+	(*node)->next = NULL;
+	(*node)->prev = NULL;
+	free(*node);
+	*node = NULL;
 }

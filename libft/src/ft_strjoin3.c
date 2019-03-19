@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_list_get_index.c                                :+:      :+:    :+:   */
+/*   ft_strjoin3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/16 18:06:49 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/19 05:39:50 by aguiot--         ###   ########.fr       */
+/*   Created: 2018/11/10 14:17:11 by aguiot--          #+#    #+#             */
+/*   Updated: 2019/03/19 06:17:58 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-ssize_t	ft_list_get_index(t_list *head, t_list *node)
+char	*ft_strjoin3(char const *s1, char const *s2, char const *s3)
 {
-	t_list	*temp;
-	ssize_t	index;
+	char	*cat;
 
-	index = 0;
-	temp = head;
-	while (temp)
-	{
-		if (temp == node)
-			return (index);
-		temp = temp->next;
-		++index;
-	}
-	return (-1);
+	if (!s1 || !s2 || !s3)
+		return (NULL);
+	if ((cat = ft_strnew(ft_strlen(s1)
+					+ ft_strlen(s2)
+					+ ft_strlen(s3))) == NULL)
+		return (NULL);
+	cat = ft_strcat(ft_strcat(ft_strcat(cat, s1), s2), s3);
+	return (cat);
 }
