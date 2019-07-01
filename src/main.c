@@ -31,10 +31,10 @@ static int		display_sig(int ret)
 char	*from_path(char **path, char *file)
 {
 	char	*fullpath;
-	char	**ptr;
+	//char	**ptr;
 	int		in;
 
-	ptr = path;
+	//ptr = path;
 	in = 0;
 	while (*path)
 	{
@@ -89,9 +89,9 @@ void	print_node(t_dlist *node)
 
 int		check_builtins(char **path, char **argv, char **env)
 {
-	int		ret;
+	//int		ret;
 
-	ret = 0;
+	//ret = 0;
 	if (!ft_strcmp(argv[0], "echo"))
 		return (echo_builtin(argv, env));
 	else if (!ft_strcmp(argv[0], "cd"))

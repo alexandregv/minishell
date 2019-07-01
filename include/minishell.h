@@ -2,6 +2,7 @@
 # define MINISHELL_H
 
 # include <limits.h>
+# include <sys/wait.h>
 # include "libft.h"
 
 char	**ft_parse_path(char **env);
