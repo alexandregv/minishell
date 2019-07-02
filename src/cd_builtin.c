@@ -9,6 +9,12 @@ int	cd_builtin(char **argv, char **env)
 	if ((str = ft_join_table(argv + 1, " ")) == NULL)
 		return (-1);
 	str[ft_strlen(str) - 1] = '\0';
+	if (ft_strlen(str) == 0)
+	{
+		free(str);
+		if (!(str = ft_strdup(ft_getenv(env, "HOME") + 5)))
+			exit(1); //TODO: Bonus /home/getpwuid() ?
+	}
 	ret = chdir(str);
 	if (ret == -1)
 	{
