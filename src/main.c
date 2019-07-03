@@ -3,7 +3,7 @@
 static int	display_sig(int ret)
 {
 	if (WIFEXITED(ret))
-		return ((WEXITSTATUS(ret) == EXIT_SUCCESS) ? 0 : -1);
+		return (WEXITSTATUS(ret));
 	else if (WIFSIGNALED(ret))
 	{
 		if (WTERMSIG(ret) == SIGBUS)
@@ -19,7 +19,7 @@ static int	display_sig(int ret)
 		else if (WTERMSIG(ret) == SIGABRT)
 			ft_putendl_fd("Aborted", 2);
 	}
-	return (-1);
+	return (1);
 }
 
 char		*from_path(char **path, char *file)
@@ -55,7 +55,7 @@ int			exec_cmd(char **path, char **argv, char **env)
 		fullpath = ft_strjoin("minishell: command not found: ", argv[0]);
 		ft_putendl_fd(fullpath, 2);
 		free(fullpath);
-		return (-1);
+		return (127);
 	}
 	ret = 0;
 	pid = fork();
@@ -72,7 +72,7 @@ int			exec_cmd(char **path, char **argv, char **env)
 		free(fullpath);
 		exit(ret);
 	}
-	return (0);
+	return (ret);
 }
 
 int			check_builtins(char **path, char **argv, char **env)
@@ -121,14 +121,12 @@ int			main(int ac, char **av, char **env)
 		parsed_argv = ft_split(line, ' ');
 		if ((ret = check_builtins(path, parsed_argv, env)) == 256)
 			ret = exec_cmd(path, parsed_argv, env);
-		ft_putchar('[');
 		if (ret == 0)
-			ft_putstr("\033[32m");
+			ft_putstr("[\033[32m");
 		else
-			ft_putstr("\033[31m");
+			ft_putstr("[\033[31m");
 		ft_putnbr(ret);
-		ft_putstr("\033[39m");
-		ft_putstr("] ");
+		ft_putstr("\033[39m] ");
 		free(line);
 		ft_free_word_table(path);
 	}

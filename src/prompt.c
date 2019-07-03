@@ -22,6 +22,6 @@ int	prompt(char **env)
 	else
 		buffptr = buff;
 	ft_putstr(buffptr);
-	ft_putstr(" $> ");
+	ft_putstr(" \033[33m$>\033[39m ");
 	return (1);
 }
