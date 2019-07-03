@@ -1,15 +1,9 @@
 #include "minishell.h"
 
-static int		display_sig(int ret)
+static int	display_sig(int ret)
 {
 	if (WIFEXITED(ret))
-	{
-		if (WEXITSTATUS(ret) == EXIT_SUCCESS)
-			ft_putendl_fd("OK", 1);
-		else
-			ft_putendl_fd("KO", 2);
 		return ((WEXITSTATUS(ret) == EXIT_SUCCESS) ? 0 : -1);
-	}
 	else if (WIFSIGNALED(ret))
 	{
 		if (WTERMSIG(ret) == SIGBUS)
@@ -28,7 +22,7 @@ static int		display_sig(int ret)
 	return (-1);
 }
 
-char	*from_path(char **path, char *file)
+char		*from_path(char **path, char *file)
 {
 	char	*fullpath;
 	//char	**ptr;
@@ -48,7 +42,7 @@ char	*from_path(char **path, char *file)
 	return (NULL);
 }
 
-int	exec_cmd(char **path, char **argv, char **env)
+int			exec_cmd(char **path, char **argv, char **env)
 {
 	pid_t	pid;
 	int		ret;
@@ -74,7 +68,6 @@ int	exec_cmd(char **path, char **argv, char **env)
 	}
 	else if (pid == 0)
 	{
-		//execve("/bin/ls", (char *[]) {"ls", "-l", "-G", NULL}, env);
 		ret = execve(fullpath, argv, env);
 		free(fullpath);
 		exit(ret);
@@ -82,16 +75,8 @@ int	exec_cmd(char **path, char **argv, char **env)
 	return (0);
 }
 
-void	print_node(t_dlist *node)
+int			check_builtins(char **path, char **argv, char **env)
 {
-	ft_putendl(node->content);
-}
-
-int		check_builtins(char **path, char **argv, char **env)
-{
-	//int		ret;
-
-	//ret = 0;
 	if (!ft_strcmp(argv[0], "echo"))
 		return (echo_builtin(argv, env));
 	else if (!ft_strcmp(argv[0], "cd"))
@@ -106,10 +91,10 @@ int		check_builtins(char **path, char **argv, char **env)
 		return (exit_builtin(argv, env));
 	else if (!ft_strcmp(argv[0], "where"))
 		return (where_builtin(path, argv, env));
-	return (-42);
+	return (256);
 }
 
-int		main(int ac, char **av, char **env)
+int			main(int ac, char **av, char **env)
 {
 	char	*line;
 	char	**parsed_argv;
@@ -118,18 +103,16 @@ int		main(int ac, char **av, char **env)
 	t_dlist	*cmds;
 
 	env = init_env(env);
-	//ft_print_word_table(env);
 	cmds = NULL;
-	while(prompt(env) && get_next_line(0, &line))
+	while (prompt(env) && get_next_line(0, &line))
 	{
 		if (!*line)
 			continue ;
 		ft_dlist_push_back(&cmds, ft_dlist_new(line, ft_strlen(line) + 1, 1));
 		if (!(path = ft_parse_path(env)))
 			return (EXIT_FAILURE);
-
 		parsed_argv = ft_split(line, ' ');
-		if ((ret = check_builtins(path, parsed_argv, env)) == -42)
+		if ((ret = check_builtins(path, parsed_argv, env)) == 256)
 			ret = exec_cmd(path, parsed_argv, env);
 		ft_putchar('[');
 		if (ret == 0)
@@ -137,17 +120,14 @@ int		main(int ac, char **av, char **env)
 		else
 			ft_putstr("\033[31m");
 		ft_putnbr(ret);
-			ft_putstr("\033[39m");
+		ft_putstr("\033[39m");
 		ft_putstr("] ");
-
 		free(line);
 		*path -= 5;
 		ft_free_word_table(path);
 	}
-	//ft_dlist_iter(list, print_node, 0);
 	ft_dlist_del(&cmds, NULL);
-
+	return (0);
 	(void)ac;
 	(void)av;
-	return (0);
 }

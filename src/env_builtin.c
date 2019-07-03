@@ -3,12 +3,11 @@
 int	setenv_builtin(char **argv, char ***env)
 {
 	char	*var = ft_strdup("TEST=JeSuis42");
-	int i = 0;
+	int		i;
+
+	i = 0;
 	while (*env[i])
-	{
-		ft_putendl(*env[i]);
-		++i;
-	}
+		ft_putendl(*env[i++]);
 	ft_putendl(" 1 ========");
 	ft_putendl(*env[i]);
 	ft_putendl(" 2 ========");

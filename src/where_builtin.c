@@ -7,7 +7,7 @@ int	where_builtin(char **path, char **argv, char **env)
 	int		found;
 
 	if (!argv[1])
-		return(0);
+		return (0);
 	ptr = path;
 	found = 0;
 	while (*path && !found)
@@ -21,24 +21,22 @@ int	where_builtin(char **path, char **argv, char **env)
 		++path;
 		free(fullpath);
 	}
-	if (!found)
-	{
-		if (!ft_strcmp(argv[1], "echo")
+	if (!ft_strcmp(argv[1], "echo") //TODO: :nauseated_face:
 			|| !ft_strcmp(argv[1], "cd")
 			|| !ft_strcmp(argv[1], "setenv")
 			|| !ft_strcmp(argv[1], "unsetenv")
 			|| !ft_strcmp(argv[1], "env")
 			|| !ft_strcmp(argv[1], "exit")
 			|| !ft_strcmp(argv[1], "where"))
-		{ //TODO: :nauseated_face:
-			ft_putstr(argv[1]);
-			ft_putendl(": shell built-in command");
-		}
-		else
-		{
-			ft_putstr(argv[1]);
-			ft_putendl(" not found");
-		}
+	{
+		ft_putstr(argv[1]);
+		ft_putendl(": shell built-in command");
+		found = 1;
+	}
+	if (!found)
+	{
+		ft_putstr(argv[1]);
+		ft_putendl(" not found");
 	}
 	path = ptr;
 
