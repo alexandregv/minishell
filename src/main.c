@@ -77,6 +77,8 @@ int			exec_cmd(char **path, char **argv, char **env)
 
 int			check_builtins(char **path, char **argv, char **env)
 {
+	if (!argv[0])
+		return (257);
 	if (!ft_strcmp(argv[0], "echo"))
 		return (echo_builtin(argv, env));
 	else if (!ft_strcmp(argv[0], "cd"))
@@ -138,6 +140,8 @@ int			main(int ac, char **av, char **env)
 			ret = exec_cmd(path, parsed_argv, env);
 		if (ret == 0)
 			ft_putstr("[\033[32m");
+		else if (ret == 257)
+			continue ;
 		else
 			ft_putstr("[\033[31m");
 		ft_putnbr(ret);
