@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:36:31 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/19 10:55:12 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/07/03 10:58:49 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,5 +149,6 @@ t_dlist		*ft_dlist_map(t_dlist *head, t_dlist *(*f)(t_dlist *node));
 char		*ft_strjoin3(const char *s1, const char *s2, const char *s3);
 char		*ft_strjoin4(const char *s1, const char *s2, const char *s3, const char *s4);
 char		*ft_join_table(char **words, char *sep);
+char		*ft_strreplace(char *str, char *needle, char *stack);
 
 #endif

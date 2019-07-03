@@ -6,7 +6,7 @@
 #    By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/18 16:51:51 by aguiot--          #+#    #+#              #
-#    Updated: 2019/03/19 12:03:07 by aguiot--         ###   ########.fr        #
+#    Updated: 2019/07/03 10:59:11 by aguiot--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,7 +92,8 @@ SRC_NAME	= \
 			ft_list_size		\
 			ft_join_table		\
 			ft_strjoin3			\
-			ft_strjoin4
+			ft_strjoin4			\
+			ft_strreplace
 
 #			ft_dlist_get_at		ft_dlist_get_index	ft_dlist_iter		\
 #			ft_dlist_last		ft_dlist_msort		ft_dlist_new		\

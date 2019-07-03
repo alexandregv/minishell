@@ -97,6 +97,7 @@ int			check_builtins(char **path, char **argv, char **env)
 int			main(int ac, char **av, char **env)
 {
 	char	*line;
+	char	*tmpline;
 	char	**parsed_argv;
 	char	**path;
 	int		ret;
@@ -108,6 +109,12 @@ int			main(int ac, char **av, char **env)
 	{
 		if (!*line)
 			continue ;
+		if (ft_strchr(line, '~'))
+		{
+			tmpline = line;
+			line = ft_strreplace(line, "~", ft_getenv(env, "HOME") + 5);
+			free(tmpline);
+		}
 		ft_dlist_push_back(&cmds, ft_dlist_new(line, ft_strlen(line) + 1, 1));
 		if (!(path = ft_parse_path(env)))
 			return (EXIT_FAILURE);
