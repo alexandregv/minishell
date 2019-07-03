@@ -108,7 +108,8 @@ int			main(int ac, char **av, char **env)
 	env = init_env(env);
 	//env = ft_setenv(env, "HOME", "/tmpiiiiiiiiiiiiiiiiiiiiu");
 	//env = ft_setenv(env, "TEST", "Bonjour");
-	//ft_print_word_table(env);
+	env = ft_unsetenv(env, "HOME");
+	ft_print_word_table(env);
 	cmds = NULL;
 	while (prompt(env) && get_next_line(0, &line))
 	{

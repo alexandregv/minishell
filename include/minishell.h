@@ -18,5 +18,6 @@ int		where_builtin(char **path, char **argv, char **env);
 char	**init_env(char **env);
 int		prompt(char **env);
 char	**ft_setenv(char **env, char *var, char *value);
+char	**ft_unsetenv(char **env, char *var);
 
 #endif

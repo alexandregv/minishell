@@ -53,6 +53,24 @@ char	**ft_setenv(char **env, char *var, char *value)
 	return (new_env);
 }
 
+char	**ft_unsetenv(char **env, char *var)
+{
+	int		i;
+
+	i = 0;
+	while (env[i])
+	{
+		if (ft_strnstr(env[i], var, ft_strlen(var)) != NULL)
+		{
+			free(env[i]);
+			env[i] = ft_strdup("");
+			return (env);
+		}
+		++i;
+	}
+	return (env);
+}
+
 char	**ft_parse_path(char **env)
 {
 	char	**parsed;
