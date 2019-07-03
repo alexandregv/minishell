@@ -132,7 +132,12 @@ int		main(int ac, char **av, char **env)
 		if ((ret = check_builtins(path, parsed_argv, env)) == -42)
 			ret = exec_cmd(path, parsed_argv, env);
 		ft_putchar('[');
+		if (ret == 0)
+			ft_putstr("\033[32m");
+		else
+			ft_putstr("\033[31m");
 		ft_putnbr(ret);
+			ft_putstr("\033[39m");
 		ft_putstr("] ");
 
 		free(line);
