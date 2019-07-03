@@ -115,6 +115,15 @@ int			main(int ac, char **av, char **env)
 			line = ft_strreplace(line, "~", ft_getenv(env, "HOME"));
 			free(tmpline);
 		}
+		if (ft_strchr(line, '$'))
+		{
+			tmpline = line;
+			char *var;
+			ft_str_copy_to(&var, ft_strchr(line, '$'), '/');
+			line = ft_strreplace(line, var, ft_getenv(env, var + 1));
+			free(var);
+			free(tmpline);
+		}
 		ft_dlist_push_back(&cmds, ft_dlist_new(line, ft_strlen(line) + 1, 1));
 		if (!(path = ft_parse_path(env)))
 			return (EXIT_FAILURE);
