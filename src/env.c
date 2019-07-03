@@ -11,6 +11,48 @@ char	*ft_getenv(char **env, char *var)
 	return (NULL);
 }
 
+
+char	**ft_setenv(char **env, char *var, char *value)
+{
+	char	*curr_var;
+	char	**new_env;
+	int		i;
+	int		j;
+
+	new_env = NULL;
+	if ((curr_var = ft_getenv(env, var)))
+	{
+		i = 0;
+		while (env[i])
+		{
+			if (!ft_strcmp(env[i], ft_strjoin3(var, "=", curr_var)))
+			{
+				free(env[i]);
+				env[i] = ft_strjoin3(var, "=", value);
+				return (env);
+			}
+			++i;
+		}
+	}
+	else
+	{
+		i = 1;
+		while (env[i])
+			++i;
+		new_env = (char **) malloc(sizeof(char *) * (i + 2));
+		j = 0;
+		while (j < i)
+		{
+			new_env[j] = ft_strdup(env[j]);
+			++j;
+		}
+		new_env[j] = ft_strjoin3(var, "=", value);
+		new_env[++j] = NULL;
+	}
+	ft_free_word_table(env);
+	return (new_env);
+}
+
 char	**ft_parse_path(char **env)
 {
 	char	**parsed;
@@ -31,7 +73,7 @@ char	**init_env(char **env)
 	size = 0;
 	while (env[size])
 		++size;
-	new = (char **)malloc(sizeof(char *) * (size + 1));
+	new = (char **) malloc(sizeof(char *) * (size + 1));
 	new[size] = NULL;
 	i = 0;
 	while (i < size)
