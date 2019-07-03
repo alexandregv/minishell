@@ -10,7 +10,6 @@ int	prompt(char **env)
 	home = ft_strdup(ft_getenv(env, "HOME"));
 	if (home != NULL)
 	{
-		home += 5;
 		if (!ft_strncmp(buff, home, ft_strlen(home)))
 		{
 			buffptr = buff + ft_strlen(home);
@@ -18,7 +17,6 @@ int	prompt(char **env)
 		}
 		else
 			buffptr = buff;
-		home -= 5;
 		free(home);
 	}
 	else

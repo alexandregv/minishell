@@ -5,7 +5,7 @@ char	*ft_getenv(char **env, char *var)
 	while (*env)
 	{
 		if (!ft_strncmp(*env, var, ft_strlen(var)))
-			return (*env);
+			return (*env + (ft_strchr(*env, '=') - *env + 1));
 		++env;
 	}
 	return (NULL);
@@ -19,7 +19,6 @@ char	**ft_parse_path(char **env)
 	if (!(var = ft_getenv(env, "PATH")))
 		return (NULL);
 	parsed = ft_split(var, ':');
-	*parsed += 5;
 	return (parsed);
 }
 

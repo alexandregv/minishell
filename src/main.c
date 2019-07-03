@@ -112,7 +112,7 @@ int			main(int ac, char **av, char **env)
 		if (ft_strchr(line, '~'))
 		{
 			tmpline = line;
-			line = ft_strreplace(line, "~", ft_getenv(env, "HOME") + 5);
+			line = ft_strreplace(line, "~", ft_getenv(env, "HOME"));
 			free(tmpline);
 		}
 		ft_dlist_push_back(&cmds, ft_dlist_new(line, ft_strlen(line) + 1, 1));
@@ -130,7 +130,6 @@ int			main(int ac, char **av, char **env)
 		ft_putstr("\033[39m");
 		ft_putstr("] ");
 		free(line);
-		*path -= 5;
 		ft_free_word_table(path);
 	}
 	ft_dlist_del(&cmds, NULL);
