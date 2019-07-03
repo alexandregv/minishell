@@ -22,7 +22,7 @@ int	cd_builtin(char **argv, char **env)
 			err = ft_strjoin3("cd: ", str, ": No such file or directory");
 		else
 			err = ft_strjoin3("cd: ", str, ": Permission denied");
-		ft_putendl(err);
+		ft_putendl_fd(err, 2);
 		free(err);
 	}
 	free(str);

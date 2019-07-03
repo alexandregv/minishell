@@ -5,25 +5,25 @@ static int		display_sig(int ret)
 	if (WIFEXITED(ret))
 	{
 		if (WEXITSTATUS(ret) == EXIT_SUCCESS)
-			ft_putendl_fd("OK", 0);
+			ft_putendl_fd("OK", 1);
 		else
-			ft_putendl_fd("KO", 1);
+			ft_putendl_fd("KO", 2);
 		return ((WEXITSTATUS(ret) == EXIT_SUCCESS) ? 0 : -1);
 	}
 	else if (WIFSIGNALED(ret))
 	{
 		if (WTERMSIG(ret) == SIGBUS)
-			ft_putendl_fd("Bus Error", 1);
+			ft_putendl_fd("Bus Error", 2);
 		else if (WTERMSIG(ret) == SIGSEGV)
-			ft_putendl_fd("Seg Fault", 1);
+			ft_putendl_fd("Seg Fault", 2);
 		else if (WTERMSIG(ret) == SIGQUIT)
-			ft_putendl_fd("Quitted", 1);
+			ft_putendl_fd("Quitted", 2);
 		else if (WTERMSIG(ret) == SIGFPE)
-			ft_putendl_fd("Floating Point Exception", 1);
+			ft_putendl_fd("Floating Point Exception", 2);
 		else if (WTERMSIG(ret) == SIGALRM)
-			ft_putendl_fd("Timed out", 1);
+			ft_putendl_fd("Timed out", 2);
 		else if (WTERMSIG(ret) == SIGABRT)
-			ft_putendl_fd("Aborted", 1);
+			ft_putendl_fd("Aborted", 2);
 	}
 	return (-1);
 }
@@ -59,7 +59,7 @@ int	exec_cmd(char **path, char **argv, char **env)
 	else if (!(fullpath = from_path(path, argv[0])))
 	{
 		fullpath = ft_strjoin("minishell: command not found: ", argv[0]);
-		ft_putendl(fullpath);
+		ft_putendl_fd(fullpath, 2);
 		free(fullpath);
 		return (-1);
 	}

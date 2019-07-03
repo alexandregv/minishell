@@ -24,6 +24,6 @@ int	prompt(char **env)
 	else
 		buffptr = buff;
 	ft_putstr(buffptr);
-	ft_putstr(" $>");
+	ft_putstr(" $> ");
 	return (1);
 }
