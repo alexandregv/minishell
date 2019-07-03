@@ -109,6 +109,9 @@ int			main(int ac, char **av, char **env)
 	{
 		if (!*line)
 			continue ;
+		tmpline = line;
+		line = ft_epur_str(line);
+		free(tmpline);
 		if (ft_strchr(line, '~'))
 		{
 			tmpline = line;
