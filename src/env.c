@@ -12,7 +12,7 @@ char	*ft_getenv(char **env, char *var)
 }
 
 
-char	**ft_setenv(char **env, char *var, char *value)
+char	**ft_setenv(char **env, char *var, char *val)
 {
 	char	*curr_var;
 	char	**new_env;
@@ -28,7 +28,8 @@ char	**ft_setenv(char **env, char *var, char *value)
 			if (!ft_strcmp(env[i], ft_strjoin3(var, "=", curr_var)))
 			{
 				free(env[i]);
-				env[i] = ft_strjoin3(var, "=", value);
+				env[i] = ft_strjoin3(var, "=", val);
+				ft_putendl(env[i]);
 				return (env);
 			}
 			++i;
@@ -46,7 +47,7 @@ char	**ft_setenv(char **env, char *var, char *value)
 			new_env[j] = ft_strdup(env[j]);
 			++j;
 		}
-		new_env[j] = ft_strjoin3(var, "=", value);
+		new_env[j] = ft_strjoin3(var, "=", val);
 		new_env[++j] = NULL;
 	}
 	ft_free_word_table(env);

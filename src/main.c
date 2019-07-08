@@ -106,6 +106,7 @@ int			main(int ac, char **av, char **env)
 	t_dlist	*cmds;
 
 	env = init_env(env);
+	env = ft_setenv(env, "TEST", "test");
 	cmds = NULL;
 	while (prompt(env) && get_next_line(0, &line))
 	{

@@ -6,7 +6,7 @@
 #    By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/01 20:31:11 by aguiot--          #+#    #+#              #
-#    Updated: 2019/03/19 18:15:20 by aguiot--         ###   ########.fr        #
+#    Updated: 2019/07/08 14:25:12 by aguiot--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ DEPS		= $(HEADERS) Makefile libft/Makefile
 
 # Source files
 SRC_PATH	= src/
-SRC_NAME	= main env echo_builtin cd_builtin env_builtin exit_builtin	\
+SRC_NAME	= main env echo_builtin cd_builtin env_builtin setenv_builtin exit_builtin	\
 			  where_builtin prompt
 
 # Object files
