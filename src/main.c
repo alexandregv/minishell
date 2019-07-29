@@ -25,10 +25,8 @@ static int	display_sig(int ret)
 char		*from_path(char **path, char *file)
 {
 	char	*fullpath;
-	//char	**ptr;
 	int		in;
 
-	//ptr = path;
 	in = 0;
 	while (*path)
 	{
@@ -132,14 +130,14 @@ int			main(int ac, char **av, char **env)
 			free(var);
 			free(tmpline);
 		}
-		
 		chained_cmds = ft_split(line, ';');
 		i = 0;
 		while (chained_cmds[i])
 		{
 			if (i > 0)
 				ft_putchar('\n');
-			ft_dlist_push_back(&cmds, ft_dlist_new(chained_cmds[i], ft_strlen(chained_cmds[i]) + 1, 1));
+			ft_dlist_push_back(&cmds, ft_dlist_new(chained_cmds[i],
+						ft_strlen(chained_cmds[i]) + 1, 1));
 			if (!(path = ft_parse_path(env)))
 				return (EXIT_FAILURE);
 			parsed_argv = ft_split(chained_cmds[i++], ' ');

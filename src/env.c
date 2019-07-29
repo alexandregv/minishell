@@ -11,7 +11,6 @@ char	*ft_getenv(char **env, char *var)
 	return (NULL);
 }
 
-
 char	**ft_setenv(char **env, char *var, char *val)
 {
 	char	*curr_var;
@@ -40,7 +39,7 @@ char	**ft_setenv(char **env, char *var, char *val)
 		i = 1;
 		while (env[i])
 			++i;
-		new_env = (char **) malloc(sizeof(char *) * (i + 2));
+		new_env = (char **)malloc(sizeof(char *) * (i + 2));
 		j = 0;
 		while (j < i)
 		{
@@ -64,9 +63,7 @@ char	**ft_unsetenv(char **env, char *var)
 	len = 0;
 	while (env[len])
 		++len;
-
-	new_env = (char **) malloc(sizeof(char *) * len);
-
+	new_env = (char **)malloc(sizeof(char *) * len);
 	i = 0;
 	j = 0;
 	while (env[i])
@@ -100,7 +97,7 @@ char	**init_env(char **env)
 	size = 0;
 	while (env[size])
 		++size;
-	new = (char **) malloc(sizeof(char *) * (size + 1));
+	new = (char **)malloc(sizeof(char *) * (size + 1));
 	new[size] = NULL;
 	i = 0;
 	while (i < size)

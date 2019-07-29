@@ -39,8 +39,6 @@ int	where_builtin(char **path, char **argv, char **env)
 		ft_putendl(" not found");
 	}
 	path = ptr;
-
 	return (0);
 	(void)env;
-	(void)argv;
 }
