@@ -103,6 +103,8 @@ int			main(int ac, char **av, char **env)
 	char	**parsed_argv;
 	char	**path;
 	int		ret;
+	char	**chained_cmds;
+	int		i;
 	t_dlist	*cmds;
 
 	env = init_env(env);
@@ -130,22 +132,30 @@ int			main(int ac, char **av, char **env)
 			free(var);
 			free(tmpline);
 		}
-		ft_dlist_push_back(&cmds, ft_dlist_new(line, ft_strlen(line) + 1, 1));
-		if (!(path = ft_parse_path(env)))
-			return (EXIT_FAILURE);
-		parsed_argv = ft_split(line, ' ');
-		if ((ret = check_builtins(path, parsed_argv, env)) == 256)
-			ret = exec_cmd(path, parsed_argv, env);
-		if (ret == 0)
-			ft_putstr("[\033[32m");
-		else if (ret == 257)
-			continue ;
-		else
-			ft_putstr("[\033[31m");
-		ft_putnbr(ret);
-		ft_putstr("\033[39m] ");
+		
+		chained_cmds = ft_split(line, ';');
+		i = 0;
+		while (chained_cmds[i])
+		{
+			if (i > 0)
+				ft_putchar('\n');
+			ft_dlist_push_back(&cmds, ft_dlist_new(chained_cmds[i], ft_strlen(chained_cmds[i]) + 1, 1));
+			if (!(path = ft_parse_path(env)))
+				return (EXIT_FAILURE);
+			parsed_argv = ft_split(chained_cmds[i++], ' ');
+			if ((ret = check_builtins(path, parsed_argv, env)) == 256)
+				ret = exec_cmd(path, parsed_argv, env);
+			if (ret == 0)
+				ft_putstr("[\033[32m");
+			else if (ret == 257)
+				continue ;
+			else
+				ft_putstr("[\033[31m");
+			ft_putnbr(ret);
+			ft_putstr("\033[39m] ");
+		}
 		free(line);
-		ft_free_word_table(path);
+		//ft_free_word_table(path);
 	}
 	ft_dlist_del(&cmds, NULL);
 	return (0);
