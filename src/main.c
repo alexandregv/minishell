@@ -161,13 +161,13 @@ int			main(int ac, char **av, char **env)
 			if (ret == 258)
 				break ;
 			if (ret == 0)
-				ft_putstr("[\033[32m");
+				ft_putstr_tty("[\033[32m");
 			else if (ret == 257)
 				continue ;
 			else
-				ft_putstr("[\033[31m");
-			ft_putnbr(ret);
-			ft_putstr("\033[39m] ");
+				ft_putstr_tty("[\033[31m");
+			ft_putnbr_tty(ret);
+			ft_putstr_tty("\033[39m] ");
 		}
 		free(line);
 		ft_free_word_table(chained_cmds);

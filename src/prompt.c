@@ -6,7 +6,7 @@ int	prompt(char **env)
 	char	*buffptr;
 	char	*home;
 
-	if (isatty(0))
+	if (isatty(0) && isatty(1))
 	{
 		getcwd(buff, 4096);
 		home = ft_getenv(env, "HOME");

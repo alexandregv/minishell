@@ -94,7 +94,15 @@ SRC_NAME	= \
 			ft_strjoin3			\
 			ft_strjoin4			\
 			ft_strreplace		\
-			ft_epur_str
+			ft_epur_str			\
+			ft_putstr_tty		\
+			ft_putstr_fd_tty	\
+			ft_putnbr_tty		\
+			ft_putnbr_fd_tty	\
+			ft_putendl_tty		\
+			ft_putendl_fd_tty	\
+			ft_putchar_tty		\
+			ft_putchar_fd_tty
 
 #			ft_dlist_get_at		ft_dlist_get_index	ft_dlist_iter		\
 #			ft_dlist_last		ft_dlist_msort		ft_dlist_new		\

@@ -2,7 +2,7 @@
 
 static int	usage(void)
 {
-	ft_putendl("Usage: unsetenv VARIABLE");
+	ft_putendl_tty("Usage: unsetenv VARIABLE");
 	return (1);
 }
 
