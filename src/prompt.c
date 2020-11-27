@@ -6,21 +6,24 @@ int	prompt(char **env)
 	char	*buffptr;
 	char	*home;
 
-	getcwd(buff, 4096);
-	home = ft_getenv(env, "HOME");
-	if (home != NULL)
+	if (isatty(0))
 	{
-		if (!ft_strncmp(buff, home, ft_strlen(home)))
+		getcwd(buff, 4096);
+		home = ft_getenv(env, "HOME");
+		if (home != NULL)
 		{
-			buffptr = buff + ft_strlen(home);
-			ft_putchar('~');
+			if (!ft_strncmp(buff, home, ft_strlen(home)))
+			{
+				buffptr = buff + ft_strlen(home);
+				ft_putchar('~');
+			}
+			else
+				buffptr = buff;
 		}
 		else
 			buffptr = buff;
+		ft_putstr(buffptr);
+		ft_putstr(" \033[33m$>\033[39m ");
 	}
-	else
-		buffptr = buff;
-	ft_putstr(buffptr);
-	ft_putstr(" \033[33m$>\033[39m ");
 	return (1);
 }
