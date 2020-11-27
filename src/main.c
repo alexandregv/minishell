@@ -89,7 +89,7 @@ int			check_builtins(char **path, char **argv, char ***env)
 	else if (!ft_strcmp(argv[0], "setenv"))
 		return (setenv_builtin(argc, argv, env));
 	else if (!ft_strcmp(argv[0], "unsetenv"))
-		return (unsetenv_builtin(argv, *env));
+		return (unsetenv_builtin(argc, argv, env));
 	else if (!ft_strcmp(argv[0], "env"))
 		return (env_builtin(argv, *env));
 	else if (!ft_strcmp(argv[0], "exit"))

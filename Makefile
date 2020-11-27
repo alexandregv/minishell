@@ -25,7 +25,7 @@ DEPS		= $(HEADERS) Makefile libft/Makefile
 # Source files
 SRC_PATH	= src/
 SRC_NAME	= main env echo_builtin cd_builtin env_builtin setenv_builtin \
-		  exit_builtin where_builtin prompt
+		  unsetenv_builtin exit_builtin where_builtin prompt
 
 # Object files
 OBJ_PATH	= obj/
