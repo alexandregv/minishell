@@ -59,7 +59,7 @@ int			ft_fork(char *fullpath, char **argv, char **env)
 	{
 		ret = execve(fullpath, argv, env);
 		free(fullpath);
-		exit(ret);
+		return (259);
 	}
 	return (ret);
 }
@@ -158,7 +158,7 @@ int			main(int ac, char **av, char **env)
 				ret = exec_cmd(path, parsed_argv, env);
 			ft_free_word_table(parsed_argv);
 			ft_free_word_table(path);
-			if (ret == 258)
+			if (ret >= 258)
 				break ;
 			if (ret == 0)
 				ft_putstr_tty("[\033[32m");
@@ -171,7 +171,7 @@ int			main(int ac, char **av, char **env)
 		}
 		free(line);
 		ft_free_word_table(chained_cmds);
-		if (ret == 258)
+		if (ret >= 258)
 			break ;
 	}
 	ft_free_word_table(env);

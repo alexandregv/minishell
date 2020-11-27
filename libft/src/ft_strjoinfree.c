@@ -9,7 +9,10 @@ char	*ft_strjoinfree(char *s1, char *s2, size_t len)
 		return (NULL);
 	total_size = ft_strlen(s1) + ft_strlen(s2);
 	if (!(result = (char *)ft_strnew(sizeof(char) * total_size)))
+	{
+		ft_strdel(&s1);
 		return (NULL);
+	}
 	ft_strcpy(result, s1);
 	ft_strncat(result, s2, len);
 	ft_strdel(&s1);
