@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 16:54:37 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/12 01:26:33 by aguiot           ###   ########.fr       */
+/*   Updated: 2020/11/28 00:39:52 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ struct			s_gnl_file
 	t_gnl_file	*next;
 };
 
-int	get_next_line(const int fd, char **line);
+int				get_next_line(const int fd, char **line);
 
 #endif

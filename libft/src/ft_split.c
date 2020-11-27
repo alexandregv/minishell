@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/28 00:40:31 by aguiot--          #+#    #+#             */
+/*   Updated: 2020/11/28 00:40:53 by aguiot--         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-static int		count_words(char *str, int delim)
+static int	count_words(char *str, int delim)
 {
 	int		count;
 
@@ -23,7 +35,7 @@ static char	*malloc_word(char *str, int delim)
 {
 	char	*word;
 	int		i;
-	
+
 	i = 0;
 	while (str[i] && str[i] != delim)
 		++i;
@@ -38,7 +50,7 @@ static char	*malloc_word(char *str, int delim)
 	return (word);
 }
 
-char	**ft_split(char *str, int delim)
+char		**ft_split(char *str, int delim)
 {
 	int		words;
 	char	**tab;
