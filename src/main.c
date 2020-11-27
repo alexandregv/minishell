@@ -52,6 +52,7 @@ int			ft_fork(char *fullpath, char **argv, char **env)
 	if (pid > 0)
 	{
 		wait(&ret);
+		free(fullpath);
 		return (display_sig(ret));
 	}
 	else if (pid == 0)
@@ -156,6 +157,7 @@ int			main(int ac, char **av, char **env)
 			if ((ret = check_builtins(path, parsed_argv, &env)) == 256)
 				ret = exec_cmd(path, parsed_argv, env);
 			ft_free_word_table(parsed_argv);
+			ft_free_word_table(path);
 			if (ret == 258)
 				break ;
 			if (ret == 0)
@@ -168,7 +170,6 @@ int			main(int ac, char **av, char **env)
 			ft_putstr("\033[39m] ");
 		}
 		free(line);
-		ft_free_word_table(path);
 		ft_free_word_table(chained_cmds);
 		if (ret == 258)
 			break ;
