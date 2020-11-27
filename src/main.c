@@ -130,7 +130,7 @@ int			main(int ac, char **av, char **env)
 			free(var);
 			free(tmpline);
 		}
-		chained_cmds = ft_split(line, ';');
+		chained_cmds = ft_split(line, 0);
 		i = 0;
 		while (chained_cmds[i])
 		{
