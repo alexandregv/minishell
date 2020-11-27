@@ -32,17 +32,21 @@ int			setenv_builtin(int argc, char **argv, char ***env)
 static int	new_var(char ***env, char *var, char *val, char *curr_var)
 {
 	int		i;
+	char	*join;
 
 	i = 0;
 	while ((*env)[i])
 	{
-		if (!ft_strcmp((*env)[i], ft_strjoin3(var, "=", curr_var)))
+		join = ft_strjoin3(var, "=", curr_var);
+		if (!ft_strcmp((*env)[i], join))
 		{
+			free(join);
 			free((*env)[i]);
 			(*env)[i] = ft_strjoin3(var, "=", val);
 			return (1);
 		}
 		++i;
+		free(join);
 	}
 	return (0);
 }
