@@ -106,7 +106,9 @@ int			main(int ac, char **av, char **env)
 	t_dlist	*cmds;
 
 	env = init_env(env);
-	env = ft_setenv(env, "TEST", "test");
+	//ft_print_word_table(env);
+	//env = ft_setenv(env, "TEST", "test");
+	//env = ft_setenv(env, "T", "test");
 	cmds = NULL;
 	while (prompt(env) && get_next_line(0, &line))
 	{
