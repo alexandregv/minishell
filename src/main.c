@@ -125,8 +125,8 @@ int			main(int ac, char **av, char **env)
 		{
 			tmpline = line;
 			char *var;
-			ft_str_copy_to(&var, ft_strchr(line, '$'), '/');
 			line = ft_strreplace(line, var, ft_getenv(env, var + 1));
+			ft_str_copy_to(&var, ft_strchr(line, '$'), ' ');
 			free(var);
 			free(tmpline);
 		}
