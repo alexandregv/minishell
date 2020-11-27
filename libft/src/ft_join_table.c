@@ -11,7 +11,11 @@ char	*ft_join_table(char **words, char *sep)
 	size = 0;
 	ptr = words;
 	while (*ptr)
+	{
 		size += ft_strlen(*ptr++);
+		if (sep)
+			size += ft_strlen(sep);
+	}
 	res = ft_strnew(size);
 	ptr = words;
 	while (*ptr)
