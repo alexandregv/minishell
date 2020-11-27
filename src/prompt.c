@@ -7,7 +7,7 @@ int	prompt(char **env)
 	char	*home;
 
 	getcwd(buff, 4096);
-	home = ft_strdup(ft_getenv(env, "HOME"));
+	home = ft_strdup(ft_getenv(env, "HOME") ?: "");
 	if (home != NULL)
 	{
 		if (!ft_strncmp(buff, home, ft_strlen(home)))
