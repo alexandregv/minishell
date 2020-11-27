@@ -85,7 +85,7 @@ char	**ft_parse_path(char **env)
 	char	*var;
 
 	if (!(var = ft_getenv(env, "PATH")))
-		return (NULL);
+		return (ft_split("", 0));
 	parsed = ft_split(var, ':');
 	return (parsed);
 }
