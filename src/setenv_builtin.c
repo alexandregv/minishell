@@ -17,11 +17,10 @@ int	setenv_builtin(int argc, char **argv, char ***env)
 	else if (argc == 2)
 	{
 		eq = ft_strchr(argv[1], '=');
-		*eq = '\0';
-		if (eq != NULL)
-			val = eq + 1;
-		else
+		if (eq == NULL)
 			return (usage());
+		val = eq + 1;
+		*eq = '\0';
 	}
 	else
 		return (usage());
