@@ -2,10 +2,13 @@
 
 char	*ft_getenv(char **env, char *var)
 {
+	unsigned int n;
+
 	while (*env)
 	{
-		if (!ft_strncmp(*env, var, ft_strlen(var)))
-			return (*env + (ft_strchr(*env, '=') - *env + 1));
+		n = ft_strchr(*env, '=') - *env;
+		if (ft_strncmp(*env, var, n) == 0 && ft_strlen(var) == n)
+			return (n + *env + 1);
 		++env;
 	}
 	return (NULL);
@@ -36,8 +39,8 @@ char	**ft_setenv(char **env, char *var, char *val)
 	}
 	else
 	{
-		i = 1;
-		while (env[i])
+		i = 0;
+		while (env[i] != NULL)
 			++i;
 		new_env = (char **)malloc(sizeof(char *) * (i + 2));
 		j = 0;
