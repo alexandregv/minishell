@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	cd_builtin(char **argv, char **env)
+int	cd_builtin(char **argv, char ***env)
 {
 	char	*str;
 	char	*err;
@@ -25,13 +25,13 @@ int	cd_builtin(char **argv, char **env)
 	if (ft_strlen(str) == 0)
 	{
 		free(str);
-		if (!(str = ft_strdup(ft_getenv(env, "HOME"))))
+		if (!(str = ft_strdup(ft_getenv(*env, "HOME"))))
 			exit(1); //TODO: Bonus /home/getpwuid() ?
 	}
 	else if (ft_strlen(str) == 1 && !ft_strcmp(str, "-"))
 	{
 		free(str);
-		if (!(str = ft_strdup(ft_getenv(env, "OLDPWD"))))
+		if (!(str = ft_strdup(ft_getenv(*env, "OLDPWD"))))
 			exit(1);
 	}
 	old = getcwd(NULL, 255);
@@ -46,7 +46,7 @@ int	cd_builtin(char **argv, char **env)
 		free(err);
 	}
 	else
-		env = ft_setenv(env, "OLDPWD", old);
+		*env = ft_setenv(env, "OLDPWD", old);
 	free(old);
 	free(str);
 	return (ret);

@@ -14,7 +14,7 @@ char	*ft_getenv(char **env, char *var)
 	return (NULL);
 }
 
-char	**ft_setenv(char **env, char *var, char *val)
+char	**ft_setenv(char ***env, char *var, char *val)
 {
 	char	*curr_var;
 	char	**new_env;
@@ -22,17 +22,16 @@ char	**ft_setenv(char **env, char *var, char *val)
 	int		j;
 
 	new_env = NULL;
-	if ((curr_var = ft_getenv(env, var)))
+	if ((curr_var = ft_getenv(*env, var)) != NULL)
 	{
 		i = 0;
-		while (env[i])
+		while ((*env)[i])
 		{
-			if (!ft_strcmp(env[i], ft_strjoin3(var, "=", curr_var)))
+			if (!ft_strcmp((*env)[i], ft_strjoin3(var, "=", curr_var)))
 			{
-				free(env[i]);
-				env[i] = ft_strjoin3(var, "=", val);
-				ft_putendl(env[i]);
-				return (env);
+				free((*env)[i]);
+				(*env)[i] = ft_strjoin3(var, "=", val);
+				return (*env);
 			}
 			++i;
 		}
@@ -40,19 +39,19 @@ char	**ft_setenv(char **env, char *var, char *val)
 	else
 	{
 		i = 0;
-		while (env[i] != NULL)
+		while ((*env)[i] != NULL)
 			++i;
 		new_env = (char **)malloc(sizeof(char *) * (i + 2));
 		j = 0;
 		while (j < i)
 		{
-			new_env[j] = ft_strdup(env[j]);
+			new_env[j] = ft_strdup((*env)[j]);
 			++j;
 		}
 		new_env[j] = ft_strjoin3(var, "=", val);
 		new_env[++j] = NULL;
 	}
-	ft_free_word_table(env);
+	ft_free_word_table(*env);
 	return (new_env);
 }
 

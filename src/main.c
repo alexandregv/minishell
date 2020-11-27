@@ -73,7 +73,7 @@ int			exec_cmd(char **path, char **argv, char **env)
 	return (ret);
 }
 
-int			check_builtins(char **path, char **argv, char **env)
+int			check_builtins(char **path, char **argv, char ***env)
 {
 	int argc;
 
@@ -83,19 +83,19 @@ int			check_builtins(char **path, char **argv, char **env)
 	if (!argv[0])
 		return (257);
 	if (!ft_strcmp(argv[0], "echo"))
-		return (echo_builtin(argv, env));
+		return (echo_builtin(argv, *env));
 	else if (!ft_strcmp(argv[0], "cd"))
 		return (cd_builtin(argv, env));
 	else if (!ft_strcmp(argv[0], "setenv"))
-		return (setenv_builtin(argc, argv, &env));
+		return (setenv_builtin(argc, argv, env));
 	else if (!ft_strcmp(argv[0], "unsetenv"))
-		return (unsetenv_builtin(argv, env));
+		return (unsetenv_builtin(argv, *env));
 	else if (!ft_strcmp(argv[0], "env"))
-		return (env_builtin(argv, env));
+		return (env_builtin(argv, *env));
 	else if (!ft_strcmp(argv[0], "exit"))
-		return (exit_builtin(argv, env));
+		return (exit_builtin(argv, *env));
 	else if (!ft_strcmp(argv[0], "where"))
-		return (where_builtin(path, argv, env));
+		return (where_builtin(path, argv, *env));
 	return (256);
 }
 
@@ -149,7 +149,7 @@ int			main(int ac, char **av, char **env)
 			if (!(path = ft_parse_path(env)))
 				return (EXIT_FAILURE);
 			parsed_argv = ft_split(chained_cmds[i++], ' ');
-			if ((ret = check_builtins(path, parsed_argv, env)) == 256)
+			if ((ret = check_builtins(path, parsed_argv, &env)) == 256)
 				ret = exec_cmd(path, parsed_argv, env);
 			if (ret == 0)
 				ft_putstr("[\033[32m");

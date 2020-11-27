@@ -26,6 +26,6 @@ int	setenv_builtin(int argc, char **argv, char ***env)
 	else
 		return (usage());
 	var = argv[1];
-	*env = ft_setenv(*env, var, val);
+	*env = ft_setenv(env, var, val);
 	return (0);
 }
