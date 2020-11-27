@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME		= minishell
-CC			= gcc
+CC		= clang
 
 # Compiler & Preprocessor flags
 CFLAGS		+= -Wall -Werror -Wextra
@@ -24,13 +24,13 @@ DEPS		= $(HEADERS) Makefile libft/Makefile
 
 # Source files
 SRC_PATH	= src/
-SRC_NAME	= main env echo_builtin cd_builtin env_builtin setenv_builtin exit_builtin	\
-			  where_builtin prompt
+SRC_NAME	= main env echo_builtin cd_builtin env_builtin setenv_builtin \
+		  exit_builtin where_builtin prompt
 
 # Object files
 OBJ_PATH	= obj/
 OBJ_NAME	= $(addsuffix .o, $(SRC_NAME))
-OBJ			= $(addprefix $(OBJ_PATH), $(OBJ_NAME))
+OBJ		= $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
 # Library
 LIB_PATH	= libft
