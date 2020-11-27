@@ -75,6 +75,11 @@ int			exec_cmd(char **path, char **argv, char **env)
 
 int			check_builtins(char **path, char **argv, char **env)
 {
+	int argc;
+
+	argc = 0;
+	while (argv[argc] != NULL)
+		++argc;
 	if (!argv[0])
 		return (257);
 	if (!ft_strcmp(argv[0], "echo"))
@@ -82,7 +87,7 @@ int			check_builtins(char **path, char **argv, char **env)
 	else if (!ft_strcmp(argv[0], "cd"))
 		return (cd_builtin(argv, env));
 	else if (!ft_strcmp(argv[0], "setenv"))
-		return (setenv_builtin(argv, &env));
+		return (setenv_builtin(argc, argv, &env));
 	else if (!ft_strcmp(argv[0], "unsetenv"))
 		return (unsetenv_builtin(argv, env));
 	else if (!ft_strcmp(argv[0], "env"))
