@@ -1,12 +1,12 @@
 #include "minishell.h"
 
-static int	usage()
+static int	usage(void)
 {
 	ft_putendl("Usage: setenv VARIABLE value");
 	return (1);
 }
 
-int	setenv_builtin(int argc, char **argv, char ***env)
+int			setenv_builtin(int argc, char **argv, char ***env)
 {
 	char	*var;
 	char	*val;

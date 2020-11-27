@@ -40,21 +40,11 @@ char		*from_path(char **path, char *file)
 	return (NULL);
 }
 
-int			exec_cmd(char **path, char **argv, char **env)
+int			ft_fork(char *fullpath, char **argv, char **env)
 {
 	pid_t	pid;
 	int		ret;
-	char	*fullpath;
 
-	if (access(argv[0], F_OK) == 0)
-		fullpath = ft_strdup(argv[0]);
-	else if (!(fullpath = from_path(path, argv[0])))
-	{
-		fullpath = ft_strjoin("minishell: command not found: ", argv[0]);
-		ft_putendl_fd(fullpath, 2);
-		free(fullpath);
-		return (127);
-	}
 	ret = 0;
 	pid = fork();
 	if (pid < 0)
@@ -71,6 +61,22 @@ int			exec_cmd(char **path, char **argv, char **env)
 		exit(ret);
 	}
 	return (ret);
+}
+
+int			exec_cmd(char **path, char **argv, char **env)
+{
+	char	*fullpath;
+
+	if (access(argv[0], F_OK) == 0)
+		fullpath = ft_strdup(argv[0]);
+	else if (!(fullpath = from_path(path, argv[0])))
+	{
+		fullpath = ft_strjoin("minishell: command not found: ", argv[0]);
+		ft_putendl_fd(fullpath, 2);
+		free(fullpath);
+		return (127);
+	}
+	return (ft_fork(fullpath, argv, env));
 }
 
 int			check_builtins(char **path, char **argv, char ***env)
@@ -95,7 +101,7 @@ int			check_builtins(char **path, char **argv, char ***env)
 	else if (!ft_strcmp(argv[0], "exit"))
 		return (exit_builtin(argv, *env));
 	else if (!ft_strcmp(argv[0], "where"))
-		return (where_builtin(path, argv, *env));
+		return (where_builtin(path, argv));
 	return (256);
 }
 
@@ -111,14 +117,11 @@ int			main(int ac, char **av, char **env)
 	t_dlist	*cmds;
 
 	env = init_env(env);
-	//ft_print_word_table(env);
-	//env = ft_setenv(env, "TEST", "test");
-	//env = ft_setenv(env, "T", "test");
 	cmds = NULL;
 	while (prompt(env) && get_next_line(0, &line))
 	{
 		if (!*line)
-			continue ;	
+			continue ;
 		chained_cmds = ft_split(line, ';');
 		i = 0;
 		while (chained_cmds[i])
@@ -129,7 +132,8 @@ int			main(int ac, char **av, char **env)
 			if (ft_strchr(chained_cmds[i], '~'))
 			{
 				tmpline = chained_cmds[i];
-				chained_cmds[i] = ft_strreplace(chained_cmds[i], "~", ft_getenv(env, "HOME"));
+				chained_cmds[i] = ft_strreplace(chained_cmds[i], "~",
+						ft_getenv(env, "HOME"));
 				free(tmpline);
 			}
 			if (ft_strchr(chained_cmds[i], '$'))
@@ -137,11 +141,11 @@ int			main(int ac, char **av, char **env)
 				tmpline = chained_cmds[i];
 				char *var;
 				ft_str_copy_to(&var, ft_strchr(chained_cmds[i], '$'), ' ');
-				chained_cmds[i] = ft_strreplace(chained_cmds[i], var, ft_getenv(env, var + 1) ?: "");
+				chained_cmds[i] = ft_strreplace(chained_cmds[i], var,
+						ft_getenv(env, var + 1) ? ft_getenv(env, var + 1) : "");
 				free(var);
 				free(tmpline);
 			}
-
 			if (i > 0)
 				ft_putchar('\n');
 			ft_dlist_push_back(&cmds, ft_dlist_new(chained_cmds[i],
@@ -161,7 +165,7 @@ int			main(int ac, char **av, char **env)
 			ft_putstr("\033[39m] ");
 		}
 		free(line);
-		//ft_free_word_table(path);
+		ft_free_word_table(path);
 	}
 	ft_dlist_del(&cmds, NULL);
 	return (0);

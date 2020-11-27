@@ -1,12 +1,12 @@
 #include "minishell.h"
 
-static int	usage()
+static int	usage(void)
 {
 	ft_putendl("Usage: unsetenv VARIABLE");
 	return (1);
 }
 
-int	unsetenv_builtin(int argc, char **argv, char ***env)
+int			unsetenv_builtin(int argc, char **argv, char ***env)
 {
 	if (argc <= 1)
 		return (usage());
