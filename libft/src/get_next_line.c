@@ -15,9 +15,12 @@
 
 int			ft_verif_line(char **line)
 {
+	int ret;
+
+	ret = (**line) ? 1 : 0;
 	if (!**line)
 		free(*line);
-	return ((**line) ? 1 : 0);
+	return (ret);
 }
 
 int			get_next_line(const int fd, char **line)
@@ -46,4 +49,3 @@ int			get_next_line(const int fd, char **line)
 			return (ft_verif_line(line));
 	}
 }
-
