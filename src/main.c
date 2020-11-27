@@ -100,7 +100,7 @@ int			check_builtins(char **path, char **argv, char ***env)
 	else if (!ft_strcmp(argv[0], "env"))
 		return (env_builtin(argv, *env));
 	else if (!ft_strcmp(argv[0], "exit"))
-		return (exit_builtin(argv/*, *env, path*/));
+		return (exit_builtin(argv));
 	else if (!ft_strcmp(argv[0], "where"))
 		return (where_builtin(path, argv));
 	return (256);
@@ -121,7 +121,7 @@ int			main(int ac, char **av, char **env)
 	cmds = NULL;
 	while (prompt(env) && get_next_line(0, &line))
 	{
-		if (!*line)
+		if (!line)
 			continue ;
 		chained_cmds = ft_split(line, ';');
 		i = 0;
