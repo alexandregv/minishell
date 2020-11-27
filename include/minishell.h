@@ -12,7 +12,7 @@ int		cd_builtin(char **argv, char ***env);
 int		setenv_builtin(int argc, char **argv, char ***env);
 int		unsetenv_builtin(int argc, char **argv, char ***env);
 int		env_builtin(char **argv, char **env);
-int		exit_builtin(char **argv, char **env);
+int		exit_builtin(char **argv);
 int		where_builtin(char **path, char **argv);
 char	**init_env(char **env);
 int		prompt(char **env);

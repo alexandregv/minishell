@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	exit_builtin(char **argv, char **env)
+int	exit_builtin(char **argv)
 {
 	if (argv[1] != NULL)
 	{
@@ -8,7 +8,5 @@ int	exit_builtin(char **argv, char **env)
 			exit(ft_atoi(argv[1]));
 		exit(127);
 	}
-	exit(0);
-	return (0);
-	(void)env;
+	return (258);
 }

@@ -99,7 +99,7 @@ int			check_builtins(char **path, char **argv, char ***env)
 	else if (!ft_strcmp(argv[0], "env"))
 		return (env_builtin(argv, *env));
 	else if (!ft_strcmp(argv[0], "exit"))
-		return (exit_builtin(argv, *env));
+		return (exit_builtin(argv/*, *env, path*/));
 	else if (!ft_strcmp(argv[0], "where"))
 		return (where_builtin(path, argv));
 	return (256);
@@ -155,6 +155,9 @@ int			main(int ac, char **av, char **env)
 			parsed_argv = ft_split(chained_cmds[i++], ' ');
 			if ((ret = check_builtins(path, parsed_argv, &env)) == 256)
 				ret = exec_cmd(path, parsed_argv, env);
+			ft_free_word_table(parsed_argv);
+			if (ret == 258)
+				break ;
 			if (ret == 0)
 				ft_putstr("[\033[32m");
 			else if (ret == 257)
@@ -166,7 +169,11 @@ int			main(int ac, char **av, char **env)
 		}
 		free(line);
 		ft_free_word_table(path);
+		ft_free_word_table(chained_cmds);
+		if (ret == 258)
+			break ;
 	}
+	ft_free_word_table(env);
 	ft_dlist_del(&cmds, NULL);
 	return (0);
 	(void)ac;
