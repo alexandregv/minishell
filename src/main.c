@@ -113,29 +113,30 @@ int			main(int ac, char **av, char **env)
 	while (prompt(env) && get_next_line(0, &line))
 	{
 		if (!*line)
-			continue ;
-		tmpline = line;
-		line = ft_epur_str(line);
-		free(tmpline);
-		if (ft_strchr(line, '~'))
-		{
-			tmpline = line;
-			line = ft_strreplace(line, "~", ft_getenv(env, "HOME"));
-			free(tmpline);
-		}
-		if (ft_strchr(line, '$'))
-		{
-			tmpline = line;
-			char *var;
-			ft_str_copy_to(&var, ft_strchr(line, '$'), ' ');
-			line = ft_strreplace(line, var, ft_getenv(env, var + 1) ?: "");
-			free(var);
-			free(tmpline);
-		}
-		chained_cmds = ft_split(line, 0);
+			continue ;	
+		chained_cmds = ft_split(line, ';');
 		i = 0;
 		while (chained_cmds[i])
 		{
+			tmpline = chained_cmds[i];
+			chained_cmds[i] = ft_epur_str(chained_cmds[i]);
+			free(tmpline);
+			if (ft_strchr(chained_cmds[i], '~'))
+			{
+				tmpline = chained_cmds[i];
+				chained_cmds[i] = ft_strreplace(chained_cmds[i], "~", ft_getenv(env, "HOME"));
+				free(tmpline);
+			}
+			if (ft_strchr(chained_cmds[i], '$'))
+			{
+				tmpline = chained_cmds[i];
+				char *var;
+				ft_str_copy_to(&var, ft_strchr(chained_cmds[i], '$'), ' ');
+				chained_cmds[i] = ft_strreplace(chained_cmds[i], var, ft_getenv(env, var + 1) ?: "");
+				free(var);
+				free(tmpline);
+			}
+
 			if (i > 0)
 				ft_putchar('\n');
 			ft_dlist_push_back(&cmds, ft_dlist_new(chained_cmds[i],
