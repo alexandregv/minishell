@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 00:34:16 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/28 00:34:18 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/28 02:50:06 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ int			main(int ac, char **av, char **env)
 				free(var);
 				free(tmpline);
 			}
-			if (i > 0)
+			if (i > 0 && ft_strlen(chained_cmds[i]) > 0)
 				ft_putchar('\n');
 			ft_dlist_push_back(&cmds, ft_dlist_new(chained_cmds[i],
 						ft_strlen(chained_cmds[i]) + 1, 1));
