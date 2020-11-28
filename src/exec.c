@@ -6,13 +6,13 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 17:19:59 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/28 19:02:37 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/28 19:25:50 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_fork(char *fullpath, char **argv, char **env)
+int			ft_fork(char *fullpath, char **argv, char **env)
 {
 	pid_t	pid;
 	int		ret;
@@ -39,43 +39,49 @@ int	ft_fork(char *fullpath, char **argv, char **env)
 	return (ret);
 }
 
-int	exec_cmd(char **path, char **argv, char **env)
+static int	print_msg(char *msg, char *path, int ret)
+{
+	char *join;
+
+	if (path == NULL)
+		return (-1);
+	if ((join = ft_strjoin(msg, path)) == NULL)
+	{
+		free(path);
+		return (-1);
+	}
+	free(path);
+	ft_putendl_fd(join, 2);
+	free(join);
+	return (ret);
+}
+
+int			exec_cmd(char **path, char **argv, char **env)
 {
 	char	*fullpath;
 
 	if ((ft_strchr(argv[0], '/') == NULL)
 			&& (fullpath = from_path(path, argv[0])) != NULL)
-		if (access(argv[0], X_OK) == 0)
+	{
+		if (access(fullpath, X_OK) == 0)
 			return (ft_fork(fullpath, argv, env));
 		else
-		{
-			fullpath = ft_strjoin("minishell: permission denied: ", argv[0]);
-			ft_putendl_fd(fullpath, 2);
-			free(fullpath);
-			return (127);
-		}
+			return (print_msg("minishell: permission denied: ", fullpath, 126));
+	}
 	else if (access(argv[0], F_OK) == 0)
 	{
 		if (access(argv[0], X_OK) == 0)
 			return (ft_fork(ft_strdup(argv[0]), argv, env));
 		else
-		{
-			fullpath = ft_strjoin("minishell: permission denied: ", argv[0]);
-			ft_putendl_fd(fullpath, 2);
-			free(fullpath);
-			return (127);
-		}
+			return (print_msg("minishell: permission denied: ",
+						ft_strdup(argv[0]), 126));
 	}
 	else
-	{
-		fullpath = ft_strjoin("minishell: command not found: ", argv[0]);
-		ft_putendl_fd(fullpath, 2);
-		free(fullpath);
-		return (127);
-	}
+		return (print_msg("minishell: command not found: ",
+					ft_strdup(argv[0]), 127));
 }
 
-int	check_builtins(char **path, char **argv, char ***env)
+int			check_builtins(char **path, char **argv, char ***env)
 {
 	int		argc;
 
