@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 00:35:02 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/28 17:06:51 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/28 21:04:37 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	**init_env(char **env)
 	size = 0;
 	while (env[size])
 		++size;
-	new = (char **)malloc(sizeof(char *) * (size + 1));
+	new = (char **)ft_memalloc(sizeof(char *) * (size + 1));
 	new[size] = NULL;
 	i = 0;
 	while (i < size)

@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 16:33:53 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/02/14 13:17:41 by aguiot           ###   ########.fr       */
+/*   Updated: 2020/11/28 21:11:34 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_list		*ft_lstnew(void const *content, size_t content_size)
 {
 	t_list	*list;
 
-	if ((list = (t_list*)malloc(sizeof(t_list))) == NULL)
+	if ((list = (t_list*)ft_memalloc(sizeof(t_list))) == NULL)
 		return (NULL);
 	if (content == NULL)
 	{

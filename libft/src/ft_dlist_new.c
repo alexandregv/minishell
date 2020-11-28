@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 18:05:50 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/19 07:13:08 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/28 21:09:55 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_dlist
 {
 	t_dlist	*node;
 
-	if ((node = (t_dlist *)malloc(sizeof(t_dlist))) == NULL)
+	if ((node = (t_dlist *)ft_memalloc(sizeof(t_dlist))) == NULL)
 		return (NULL);
 	if (content == NULL)
 	{

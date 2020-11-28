@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 00:40:31 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/28 20:38:09 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/28 21:11:40 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char		**ft_split(char *str, int delim)
 	int		i;
 
 	words = count_words(str, delim);
-	tab = (char **)malloc(sizeof(char*) * (words + 1));
+	tab = (char **)ft_memalloc(sizeof(char*) * (words + 1));
 	i = 0;
 	while (*str)
 	{

@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 16:04:28 by aguiot--          #+#    #+#             */
-/*   Updated: 2018/12/14 15:04:53 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/28 21:11:45 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char			**ft_strsplit(char const *s, char c)
 		return (NULL);
 	i = 0;
 	split_id = count_splits((char const *)s, c);
-	if ((arr = (char**)malloc(sizeof(char*)
+	if ((arr = (char**)ft_memalloc(sizeof(char*)
 					* (count_splits((char const *)s, c) + 1))) == NULL)
 		return (NULL);
 	while (split_id-- > 0)
