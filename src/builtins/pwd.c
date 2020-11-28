@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 00:35:44 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/28 21:27:48 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/28 21:36:55 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		pwd_builtin(void)
 	cwd = getcwd(NULL, 255);
 	if (cwd == NULL)
 	{
-		ft_putendl("minishell: pwd: error with current working directory)");
+		ft_putendl("minishell: pwd: error with current working directory");
 		return (1);
 	}
 	else
