@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 00:35:02 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/28 17:06:37 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/28 20:43:33 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ char	**ft_parse_path(char **env)
 	char	*var;
 
 	if (!(var = ft_getenv(env, "PATH")))
-		return (ft_split("", 0));
-	parsed = ft_split(var, ':');
+		return (ft_splitu("", 0));
+	parsed = ft_splitu(var, ":");
 	return (parsed);
 }
 

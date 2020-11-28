@@ -6,7 +6,7 @@
 #    By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/18 16:51:51 by aguiot--          #+#    #+#              #
-#    Updated: 2019/07/03 13:39:39 by aguiot--         ###   ########.fr        #
+#    Updated: 2020/11/28 20:41:55 by aguiot--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -102,7 +102,8 @@ SRC_NAME	= \
 			ft_putendl_tty		\
 			ft_putendl_fd_tty	\
 			ft_putchar_tty		\
-			ft_putchar_fd_tty
+			ft_putchar_fd_tty	\
+			ft_splitu
 
 #			ft_dlist_get_at		ft_dlist_get_index	ft_dlist_iter		\
 #			ft_dlist_last		ft_dlist_msort		ft_dlist_new		\

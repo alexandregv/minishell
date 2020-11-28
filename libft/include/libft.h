@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:36:31 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/28 00:39:23 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/28 20:39:31 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ char		**ft_split(char *str, int delim);
 char		**ft_sort_table(char **table, size_t size);
 void		ft_print_word_table(char **words);
 void		ft_free_word_table(char **words);
+char		**ft_splitu(char *str, char *charset);
 
 t_list		*ft_list_new(const void *content, size_t content_size);
 t_dlist		*ft_dlist_new(const void *content, size_t content_size, int copy);
