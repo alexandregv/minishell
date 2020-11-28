@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			  */
-/*														  :::	   ::::::::   */
-/*	 main.c												:+:		 :+:	:+:   */
-/*													  +:+ +:+		  +:+	  */
-/*	 By: aguiot-- <aguiot--@student.42.fr>			+#+  +:+	   +#+		  */
-/*												  +#+#+#+#+#+	+#+			  */
-/*	 Created: 2020/11/28 00:34:16 by aguiot--		   #+#	  #+#			  */
-/*	 Updated: 2020/11/28 03:38:18 by aguiot--		  ###	########.fr		  */
-/*																			  */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/28 16:52:29 by aguiot--          #+#    #+#             */
+/*   Updated: 2020/11/28 16:58:11 by aguiot--         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include <signal.h>
@@ -15,6 +15,15 @@
 
 pid_t	g_pid;
 char	**g_env;
+
+static void	ft_handle_sigint(int sig)
+{
+	ft_putchar('\n');
+	if (g_pid == -1)
+		prompt(g_env);
+	else
+		kill(g_pid, sig);
+}
 
 static int	display_sig(int ret)
 {
@@ -36,24 +45,6 @@ static int	display_sig(int ret)
 			ft_putendl_fd("Aborted", 2);
 	}
 	return (1);
-}
-
-char		*from_path(char **path, char *file)
-{
-	char	*fullpath;
-	int		in;
-
-	in = 0;
-	while (*path)
-	{
-		fullpath = ft_strjoin3(*path, "/", file);
-		if (access(fullpath, F_OK) == 0)
-			return (fullpath);
-		++path;
-		++in;
-		free(fullpath);
-	}
-	return (NULL);
 }
 
 int			ft_fork(char *fullpath, char **argv, char **env)
@@ -81,6 +72,24 @@ int			ft_fork(char *fullpath, char **argv, char **env)
 		return (259);
 	}
 	return (ret);
+}
+
+char		*from_path(char **path, char *file)
+{
+	char	*fullpath;
+	int		in;
+
+	in = 0;
+	while (*path)
+	{
+		fullpath = ft_strjoin3(*path, "/", file);
+		if (access(fullpath, F_OK) == 0)
+			return (fullpath);
+		++path;
+		++in;
+		free(fullpath);
+	}
+	return (NULL);
 }
 
 int			exec_cmd(char **path, char **argv, char **env)
@@ -125,15 +134,6 @@ int			check_builtins(char **path, char **argv, char ***env)
 	return (256);
 }
 
-static void	ft_handle_sigint(int sig)
-{
-	ft_putchar('\n');
-	if (g_pid == -1)
-		prompt(g_env);
-	else
-		kill(g_pid, sig);
-}
-
 int			main(int ac, char **av, char **env)
 {
 	char	*line;
@@ -148,6 +148,7 @@ int			main(int ac, char **av, char **env)
 	g_pid = -1;
 	signal(SIGINT, ft_handle_sigint);
 
+	ret = 0;
 	env = init_env(env);
 	g_env = env;
 	cmds = NULL;
