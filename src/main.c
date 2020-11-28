@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 16:52:29 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/28 16:58:11 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/28 17:23:35 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,124 +15,6 @@
 
 pid_t	g_pid;
 char	**g_env;
-
-static void	ft_handle_sigint(int sig)
-{
-	ft_putchar('\n');
-	if (g_pid == -1)
-		prompt(g_env);
-	else
-		kill(g_pid, sig);
-}
-
-static int	display_sig(int ret)
-{
-	if (WIFEXITED(ret))
-		return (WEXITSTATUS(ret));
-	else if (WIFSIGNALED(ret))
-	{
-		if (WTERMSIG(ret) == SIGBUS)
-			ft_putendl_fd("Bus Error", 2);
-		else if (WTERMSIG(ret) == SIGSEGV)
-			ft_putendl_fd("Seg Fault", 2);
-		else if (WTERMSIG(ret) == SIGQUIT)
-			ft_putendl_fd("Quitted", 2);
-		else if (WTERMSIG(ret) == SIGFPE)
-			ft_putendl_fd("Floating Point Exception", 2);
-		else if (WTERMSIG(ret) == SIGALRM)
-			ft_putendl_fd("Timed out", 2);
-		else if (WTERMSIG(ret) == SIGABRT)
-			ft_putendl_fd("Aborted", 2);
-	}
-	return (1);
-}
-
-int			ft_fork(char *fullpath, char **argv, char **env)
-{
-	pid_t	pid;
-	int		ret;
-
-	ret = 0;
-	pid = fork();
-	if (pid < 0)
-		ft_die("fork() failed, please check max process limits", -1);
-	if (pid > 0)
-	{
-		g_pid = pid;
-		wait(&ret);
-		g_pid = -1;
-		free(fullpath);
-		return (display_sig(ret));
-	}
-	else if (pid == 0)
-	{
-		signal(SIGINT, SIG_DFL);
-		ret = execve(fullpath, argv, env);
-		free(fullpath);
-		return (259);
-	}
-	return (ret);
-}
-
-char		*from_path(char **path, char *file)
-{
-	char	*fullpath;
-	int		in;
-
-	in = 0;
-	while (*path)
-	{
-		fullpath = ft_strjoin3(*path, "/", file);
-		if (access(fullpath, F_OK) == 0)
-			return (fullpath);
-		++path;
-		++in;
-		free(fullpath);
-	}
-	return (NULL);
-}
-
-int			exec_cmd(char **path, char **argv, char **env)
-{
-	char	*fullpath;
-
-	if (access(argv[0], F_OK) == 0)
-		fullpath = ft_strdup(argv[0]);
-	else if (!(fullpath = from_path(path, argv[0])))
-	{
-		fullpath = ft_strjoin("minishell: command not found: ", argv[0]);
-		ft_putendl_fd(fullpath, 2);
-		free(fullpath);
-		return (127);
-	}
-	return (ft_fork(fullpath, argv, env));
-}
-
-int			check_builtins(char **path, char **argv, char ***env)
-{
-	int argc;
-
-	argc = 0;
-	while (argv[argc] != NULL)
-		++argc;
-	if (!argv[0])
-		return (257);
-	if (!ft_strcmp(argv[0], "echo"))
-		return (echo_builtin(argv, *env));
-	else if (!ft_strcmp(argv[0], "cd"))
-		return (cd_builtin(argv, env));
-	else if (!ft_strcmp(argv[0], "setenv"))
-		return (setenv_builtin(argc, argv, env));
-	else if (!ft_strcmp(argv[0], "unsetenv"))
-		return (unsetenv_builtin(argc, argv, env));
-	else if (!ft_strcmp(argv[0], "env"))
-		return (env_builtin(argv, *env));
-	else if (!ft_strcmp(argv[0], "exit"))
-		return (exit_builtin(argv));
-	else if (!ft_strcmp(argv[0], "where"))
-		return (where_builtin(path, argv));
-	return (256);
-}
 
 int			main(int ac, char **av, char **env)
 {

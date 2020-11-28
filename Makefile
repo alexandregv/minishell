@@ -6,7 +6,7 @@
 #    By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/01 20:31:11 by aguiot--          #+#    #+#              #
-#    Updated: 2019/07/08 14:25:12 by aguiot--         ###   ########.fr        #
+#    Updated: 2020/11/28 17:26:08 by aguiot--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,8 +24,9 @@ DEPS		= $(HEADERS) Makefile libft/Makefile
 
 # Source files
 SRC_PATH	= src/
-SRC_NAME	= main env echo_builtin cd_builtin env_builtin setenv_builtin \
-		  unsetenv_builtin exit_builtin where_builtin prompt
+SRC_NAME	= main env prompt path signals exec \
+			  builtins/echo builtins/cd builtins/env builtins/setenv \
+			  builtins/unsetenv builtins/exit builtins/where
 
 # Object files
 OBJ_PATH	= obj/
@@ -73,7 +74,7 @@ $(LIB_FILE):
 	@$(MAKE) -C $(LIB_PATH)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c $(DEPS)
-	@mkdir $(OBJ_PATH) $(HIDE_ERR)
+	@mkdir -p $(OBJ_PATH)/builtins $(HIDE_ERR)
 	@$(ERASE)
 	@$(ECHO) "$(NAME)\t[$(C_PENDING)⏳ $(C_RESET)]"
 	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
