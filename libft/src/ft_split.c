@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 00:40:31 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/28 00:40:53 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/28 20:38:09 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ static char	*malloc_word(char *str, int delim)
 	i = 0;
 	while (str[i] && str[i] != delim)
 		++i;
-	word = (char *)malloc(sizeof(char) * (i + 1));
+	if ((word = ft_strnew(i)) == NULL)
+		return (NULL);
 	i = 0;
 	while (str[i] && str[i] != delim)
 	{
