@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 00:35:44 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/28 00:35:44 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/28 21:31:36 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int			where_builtin(char **path, char **argv)
 
 	if (!argv[1])
 		return (0);
-	found = in_path(path, argv[1]);
+	found = 0;
 	if (!ft_strcmp(argv[1], "echo") || !ft_strcmp(argv[1], "cd")
 			|| !ft_strcmp(argv[1], "setenv") || !ft_strcmp(argv[1], "unsetenv")
 			|| !ft_strcmp(argv[1], "env") || !ft_strcmp(argv[1], "exit")
@@ -48,7 +48,8 @@ int			where_builtin(char **path, char **argv)
 		ft_putendl(": shell built-in command");
 		found = 1;
 	}
-	if (!found)
+	found += in_path(path, argv[1]);
+	if (found == 0)
 	{
 		ft_putstr(argv[1]);
 		ft_putendl(" not found");
