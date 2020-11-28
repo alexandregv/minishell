@@ -1,16 +1,20 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/28 00:34:16 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/28 02:50:06 by aguiot--         ###   ########.fr       */
-/*                                                                            */
+/*																			  */
+/*														  :::	   ::::::::   */
+/*	 main.c												:+:		 :+:	:+:   */
+/*													  +:+ +:+		  +:+	  */
+/*	 By: aguiot-- <aguiot--@student.42.fr>			+#+  +:+	   +#+		  */
+/*												  +#+#+#+#+#+	+#+			  */
+/*	 Created: 2020/11/28 00:34:16 by aguiot--		   #+#	  #+#			  */
+/*	 Updated: 2020/11/28 03:38:18 by aguiot--		  ###	########.fr		  */
+/*																			  */
 /* ************************************************************************** */
 
+#include <signal.h>
 #include "minishell.h"
+
+pid_t	g_pid;
+char	**g_env;
 
 static int	display_sig(int ret)
 {
@@ -63,12 +67,15 @@ int			ft_fork(char *fullpath, char **argv, char **env)
 		ft_die("fork() failed, please check max process limits", -1);
 	if (pid > 0)
 	{
+		g_pid = pid;
 		wait(&ret);
+		g_pid = -1;
 		free(fullpath);
 		return (display_sig(ret));
 	}
 	else if (pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
 		ret = execve(fullpath, argv, env);
 		free(fullpath);
 		return (259);
@@ -118,6 +125,15 @@ int			check_builtins(char **path, char **argv, char ***env)
 	return (256);
 }
 
+static void	ft_handle_sigint(int sig)
+{
+	ft_putchar('\n');
+	if (g_pid == -1)
+		prompt(g_env);
+	else
+		kill(g_pid, sig);
+}
+
 int			main(int ac, char **av, char **env)
 {
 	char	*line;
@@ -129,12 +145,17 @@ int			main(int ac, char **av, char **env)
 	int		i;
 	t_dlist	*cmds;
 
+	g_pid = -1;
+	signal(SIGINT, ft_handle_sigint);
+
 	env = init_env(env);
+	g_env = env;
 	cmds = NULL;
 	while (prompt(env) && get_next_line(0, &line))
 	{
 		if (!line)
 			continue ;
+		g_env = env;
 		chained_cmds = ft_split(line, ';');
 		i = 0;
 		while (chained_cmds[i])
