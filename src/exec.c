@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 17:19:59 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/28 17:24:19 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/28 18:00:13 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,23 @@ int	exec_cmd(char **path, char **argv, char **env)
 {
 	char	*fullpath;
 
-	if (access(argv[0], F_OK) == 0)
+	if ((ft_strchr(argv[0], '/') == NULL)
+			&& (fullpath = from_path(path, argv[0])) != NULL)
+	{
+		return (ft_fork(fullpath, argv, env));
+	}
+	else if (access(argv[0], F_OK) == 0)
+	{
 		fullpath = ft_strdup(argv[0]);
-	else if (!(fullpath = from_path(path, argv[0])))
+		return (ft_fork(fullpath, argv, env));
+	}
+	else
 	{
 		fullpath = ft_strjoin("minishell: command not found: ", argv[0]);
 		ft_putendl_fd(fullpath, 2);
 		free(fullpath);
 		return (127);
 	}
-	return (ft_fork(fullpath, argv, env));
 }
 
 int	check_builtins(char **path, char **argv, char ***env)
