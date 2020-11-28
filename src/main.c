@@ -6,11 +6,10 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 16:52:29 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/28 17:23:35 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/28 19:50:01 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
 #include "minishell.h"
 
 pid_t	g_pid;
@@ -34,7 +33,7 @@ int			main(int ac, char **av, char **env)
 	env = init_env(env);
 	g_env = env;
 	cmds = NULL;
-	while (prompt(env) && get_next_line(0, &line))
+	while (prompt(env) && get_next_line(0, &line) == 1)
 	{
 		if (!line)
 			continue ;
