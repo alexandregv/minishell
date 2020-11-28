@@ -42,7 +42,7 @@ int			where_builtin(char **path, char **argv)
 	if (!ft_strcmp(argv[1], "echo") || !ft_strcmp(argv[1], "cd")
 			|| !ft_strcmp(argv[1], "setenv") || !ft_strcmp(argv[1], "unsetenv")
 			|| !ft_strcmp(argv[1], "env") || !ft_strcmp(argv[1], "exit")
-			|| !ft_strcmp(argv[1], "where"))
+			|| !ft_strcmp(argv[1], "where") || !ft_strcmp(argv[1], "pwd"))
 	{
 		ft_putstr(argv[1]);
 		ft_putendl(": shell built-in command");

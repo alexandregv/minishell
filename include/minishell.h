@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 00:35:58 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/28 17:21:03 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/28 21:28:18 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int		unsetenv_builtin(int argc, char **argv, char ***env);
 int		env_builtin(char **argv, char **env);
 int		exit_builtin(char **argv);
 int		where_builtin(char **path, char **argv);
+int		pwd_builtin();
 char	**init_env(char **env);
 int		prompt(char **env);
 char	**ft_setenv(char ***env, char *var, char *value);

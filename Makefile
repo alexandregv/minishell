@@ -6,7 +6,7 @@
 #    By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/01 20:31:11 by aguiot--          #+#    #+#              #
-#    Updated: 2020/11/28 17:26:08 by aguiot--         ###   ########.fr        #
+#    Updated: 2020/11/28 21:28:01 by aguiot--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ DEPS		= $(HEADERS) Makefile libft/Makefile
 SRC_PATH	= src/
 SRC_NAME	= main env prompt path signals exec \
 			  builtins/echo builtins/cd builtins/env builtins/setenv \
-			  builtins/unsetenv builtins/exit builtins/where
+			  builtins/unsetenv builtins/exit builtins/where \
+			  builtins/pwd
 
 # Object files
 OBJ_PATH	= obj/

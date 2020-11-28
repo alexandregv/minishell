@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 17:19:59 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/28 19:25:50 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/28 21:28:38 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,7 @@ int			check_builtins(char **path, char **argv, char ***env)
 		return (exit_builtin(argv));
 	else if (!ft_strcmp(argv[0], "where"))
 		return (where_builtin(path, argv));
+	else if (!ft_strcmp(argv[0], "pwd"))
+		return (pwd_builtin());
 	return (256);
 }
