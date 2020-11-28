@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 00:35:40 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/28 00:35:40 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/28 03:04:19 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,17 @@ char		**ft_unsetenv(char **env, char *var)
 	char	**new_env;
 
 	len = 0;
-	while (env[len])
+	while (env[len] != NULL)
 		++len;
 	new_env = (char **)malloc(sizeof(char *) * len);
 	i = 0;
 	j = 0;
-	while (env[i])
+	while (env[i] != NULL)
 	{
 		if (ft_strnstr(env[i], var, ft_strlen(var)) != NULL)
 			free(env[i++]);
-		new_env[j++] = env[i++];
+		else
+			new_env[j++] = env[i++];
 	}
 	new_env[j] = NULL;
 	free(env);
