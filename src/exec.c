@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 17:19:59 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/29 19:23:37 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/29 19:33:20 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int			exec_cmds(int ret, t_dlist **cmds, char **chained_cmds, char ***env)
 		if ((parsed_argv = parse_arg(chained_cmds, i++, cmds, env)) == NULL
 			|| (path = ft_parse_path(*env)) == NULL)
 			return (EXIT_FAILURE);
-		if ((ret = check_builtins(path, parsed_argv, env)) == 256)
+		if ((ret = check_builtins(*cmds, path, parsed_argv, env)) == 256)
 			ret = exec_cmd(path, parsed_argv, *env);
 		*env = set_last_exit_code(ret, env);
 		ft_free_word_table(parsed_argv);
@@ -102,32 +102,4 @@ int			exec_cmd(char **path, char **argv, char **env)
 	else
 		return (print_error("command not found: ",
 					ft_strdup(argv[0]), 127));
-}
-
-int			check_builtins(char **path, char **argv, char ***env)
-{
-	int		argc;
-
-	argc = 0;
-	while (argv[argc] != NULL)
-		++argc;
-	if (!argv[0])
-		return (257);
-	if (!ft_strcmp(argv[0], "echo"))
-		return (echo_builtin(argv, *env));
-	else if (!ft_strcmp(argv[0], "cd"))
-		return (cd_builtin(argv, env));
-	else if (!ft_strcmp(argv[0], "setenv"))
-		return (setenv_builtin(argc, argv, env));
-	else if (!ft_strcmp(argv[0], "unsetenv"))
-		return (unsetenv_builtin(argc, argv, env));
-	else if (!ft_strcmp(argv[0], "env"))
-		return (env_builtin(argv, *env));
-	else if (!ft_strcmp(argv[0], "exit"))
-		return (exit_builtin(argv));
-	else if (!ft_strcmp(argv[0], "where"))
-		return (where_builtin(path, argv));
-	else if (!ft_strcmp(argv[0], "pwd"))
-		return (pwd_builtin());
-	return (256);
 }

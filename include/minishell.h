@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 00:35:58 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/29 19:23:58 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/29 19:32:45 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	**init_env(char **env);
 int		prompt(char **env);
 char	**ft_setenv(char ***env, char *var, char *value);
 char	**ft_unsetenv(char **env, char *var);
-int		check_builtins(char **path, char **argv, char ***env);
+int		check_builtins(t_dlist *cmds, char **path, char **argv, char ***env);
 char	*from_path(char **path, char *file);
 int		display_sig(int ret);
 void	ft_handle_sigint(int sig);
