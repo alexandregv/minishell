@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 00:35:02 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/29 20:37:28 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/29 20:41:44 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,13 @@ char		*ft_getenv(char **env, char *var)
 
 static char	**set_standard_vars(int ac, char **av, char ***env)
 {
-	char **new;
+	char	**new;
+	char	actualpath[PATH_MAX + 1];
 
 	new = *env;
 	if (ac >= 1)
 	{
-		new = ft_setenv(env, "SHELL", av[0]);
+		new = ft_setenv(env, "SHELL", realpath(av[0], actualpath));
 	}
 	return (new);
 }
