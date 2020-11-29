@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 17:19:59 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/29 17:13:39 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/29 18:48:27 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int			ft_fork(char *fullpath, char **argv, char **env)
 	return (ret);
 }
 
-static char	**doit(char **chained_cmds, int i, t_dlist **cmds, char ***env)
+static char	**parse_arg(char **chained_cmds, int i, t_dlist **cmds, char ***env)
 {
 	chained_cmds[i] = expand_expansions(chained_cmds[i], *env);
 	if (i > 0 && ft_strlen(chained_cmds[i]) > 0)
@@ -60,7 +60,7 @@ int			exec_cmds(t_dlist **cmds, char **chained_cmds, char ***env)
 	i = 0;
 	while (chained_cmds[i])
 	{
-		if ((parsed_argv = doit(chained_cmds, i++, cmds, env)) == NULL
+		if ((parsed_argv = parse_arg(chained_cmds, i++, cmds, env)) == NULL
 			|| (path = ft_parse_path(*env)) == NULL)
 			return (EXIT_FAILURE);
 		if ((ret = check_builtins(path, parsed_argv, env)) == 256)
