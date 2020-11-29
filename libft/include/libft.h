@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:36:31 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/28 20:39:31 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/29 19:59:16 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ t_list		*ft_list_msort(t_list *head, int (*cmp)(t_list *, t_list *));
 t_dlist		*ft_dlist_msort(t_dlist *head, int (*cmp)(t_dlist *, t_dlist *));
 t_list		*ft_list_map(t_list *head, t_list *(*f)(t_list *node));
 t_dlist		*ft_dlist_map(t_dlist *head, t_dlist *(*f)(t_dlist *node));
+t_dlist		*ft_dlist_mapi(t_dlist *head, t_dlist *(*f)(int, t_dlist *), int i);
 
 char		*ft_strjoin3(const char *s1, const char *s2, const char *s3);
 char		*ft_strjoin4(const char *s1, const char *s2, const char *s3,
