@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 17:19:59 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/29 18:48:27 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/29 19:10:03 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int			exec_cmds(t_dlist **cmds, char **chained_cmds, char ***env)
 			return (EXIT_FAILURE);
 		if ((ret = check_builtins(path, parsed_argv, env)) == 256)
 			ret = exec_cmd(path, parsed_argv, *env);
+		*env = set_last_exit_code(ret, env);
 		ft_free_word_table(parsed_argv);
 		ft_free_word_table(path);
 		if (ret >= 258)

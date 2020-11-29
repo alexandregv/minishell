@@ -6,11 +6,21 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 00:35:02 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/28 21:04:37 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/29 19:09:07 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	**set_last_exit_code(int ret, char ***env)
+{
+	char	*str;
+
+	str = ft_itoa(ret);
+	*env = ft_setenv(env, "?", str);
+	free(str);
+	return (*env);
+}
 
 char	*ft_getenv(char **env, char *var)
 {
