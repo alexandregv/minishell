@@ -6,36 +6,53 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 16:52:29 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/29 16:05:03 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/29 18:08:49 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*expand_expansions(char *cmd, char **env)
+char	*tilde_expansion(char *cmd, char **env)
 {
-	char	*tmpline;
+	char	*tmp;
+	char	*val;
+
+	if (ft_strchr(cmd, '~'))
+	{
+		tmp = cmd;
+		val = ft_getenv(env, "HOME");
+		cmd = ft_strreplace(cmd, "~", val ? val : "");
+		free(tmp);
+	}
+	return (cmd);
+}
+
+char	*var_expansion(char *cmd, char **env)
+{
+	char	*tmp;
 	char	*var;
 	char	*val;
 
-	tmpline = cmd;
-	cmd = ft_epur_str(cmd);
-	free(tmpline);
-	if (ft_strchr(cmd, '~'))
-	{
-		tmpline = cmd;
-		val = ft_getenv(env, "HOME");
-		cmd = ft_strreplace(cmd, "~", val ? val : "");
-		free(tmpline);
-	}
 	if (ft_strchr(cmd, '$'))
 	{
-		tmpline = cmd;
+		tmp = cmd;
 		ft_str_copy_to(&var, ft_strchr(cmd, '$'), ' ');
 		val = ft_getenv(env, var + 1);
 		cmd = ft_strreplace(cmd, var, val ? val : "");
 		free(var);
-		free(tmpline);
+		free(tmp);
 	}
+	return (cmd);
+}
+
+char	*expand_expansions(char *cmd, char **env)
+{
+	char	*tmp;
+
+	tmp = cmd;
+	cmd = ft_epur_str(cmd);
+	free(tmp);
+	cmd = tilde_expansion(cmd, env);
+	cmd = var_expansion(cmd, env);
 	return (cmd);
 }
