@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 17:19:59 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/29 16:27:25 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/29 16:38:09 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int			ft_fork(char *fullpath, char **argv, char **env)
 	ret = 0;
 	pid = fork();
 	if (pid < 0)
-		ft_die("fork() failed, please check max process limits", -1);
+		print_error("fork() failed, please check max process limits",
+			ft_strdup(""), -1);
 	if (pid > 0)
 	{
 		g_pid = pid;
@@ -86,18 +87,18 @@ int			exec_cmd(char **path, char **argv, char **env)
 			return (ft_fork(fullpath, argv, env));
 		else
 			return (
-				print_error("minishell: permission denied: ", fullpath, 126));
+				print_error("permission denied: ", fullpath, 126));
 	}
 	else if (access(argv[0], F_OK) == 0)
 	{
 		if (access(argv[0], X_OK) == 0)
 			return (ft_fork(ft_strdup(argv[0]), argv, env));
 		else
-			return (print_error("minishell: permission denied: ",
+			return (print_error("permission denied: ",
 						ft_strdup(argv[0]), 126));
 	}
 	else
-		return (print_error("minishell: command not found: ",
+		return (print_error("command not found: ",
 					ft_strdup(argv[0]), 127));
 }
 

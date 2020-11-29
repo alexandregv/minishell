@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 08:55:04 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/28 20:52:12 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/29 16:37:40 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,11 @@ int		change_directory(char *directory, char ***env)
 	if (ret == -1)
 	{
 		if (access(directory, F_OK) == -1)
-			err = ft_strjoin3("cd: ", directory, ": No such file or directory");
+			err = ft_strjoin3("minishell: cd: ", directory,
+				": No such file or directory");
 		else
-			err = ft_strjoin3("cd: ", directory, ": Permission denied");
+			err = ft_strjoin3("minishell: cd: ", directory,
+				": Permission denied");
 		ft_putendl_fd(err, 2);
 		free(err);
 	}

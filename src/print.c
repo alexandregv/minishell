@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 16:23:51 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/29 16:24:04 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/29 16:32:21 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	print_error(char *msg, char *path, int ret)
 
 	if (path == NULL)
 		return (-1);
-	if ((join = ft_strjoin(msg, path)) == NULL)
+	if ((join = ft_strjoin3("minishell: ", msg, path)) == NULL)
 	{
 		free(path);
 		return (-1);
