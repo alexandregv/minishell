@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 16:52:29 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/29 16:16:40 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/29 19:23:47 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int			main(int ac, char **av, char **env)
 			continue ;
 		g_env = env;
 		chained_cmds = ft_splitu(line, ";");
-		ret = exec_cmds(&cmds, chained_cmds, &env);
+		ret = exec_cmds(0, &cmds, chained_cmds, &env);
 		free(line);
 		ft_free_word_table(chained_cmds);
 		if (ret >= 258)

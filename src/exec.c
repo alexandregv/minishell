@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 17:19:59 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/29 19:10:03 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/29 19:23:37 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,11 @@ static char	**parse_arg(char **chained_cmds, int i, t_dlist **cmds, char ***env)
 	return (ft_splitu(chained_cmds[i], " "));
 }
 
-int			exec_cmds(t_dlist **cmds, char **chained_cmds, char ***env)
+int			exec_cmds(int ret, t_dlist **cmds, char **chained_cmds, char ***env)
 {
 	char	**path;
 	char	**parsed_argv;
 	int		i;
-	int		ret;
 
 	i = 0;
 	while (chained_cmds[i])
