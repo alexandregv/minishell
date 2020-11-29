@@ -6,7 +6,7 @@
 #    By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/01 20:31:11 by aguiot--          #+#    #+#              #
-#    Updated: 2020/11/29 16:05:41 by aguiot--         ###   ########.fr        #
+#    Updated: 2020/11/29 16:24:28 by aguiot--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ DEPS		= $(HEADERS) Makefile libft/Makefile
 
 # Source files
 SRC_PATH	= src/
-SRC_NAME	= main env prompt path signals exec expansions \
+SRC_NAME	= main env prompt path signals exec expansions print \
 			  builtins/echo builtins/cd builtins/env builtins/setenv \
 			  builtins/unsetenv builtins/exit builtins/where \
 			  builtins/pwd

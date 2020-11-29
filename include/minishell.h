@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 00:35:58 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/29 16:08:16 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/29 16:24:17 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ int		ft_fork(char *fullpath, char **argv, char **env);
 int		exec_cmd(char **path, char **argv, char **env);
 char	*expand_expansions(char *cmd, char **env);
 int		exec_cmds(t_dlist **cmds, char **chained_cmds, char ***env);
+int		print_error(char *msg, char *path, int ret);
 
 #endif
