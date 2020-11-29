@@ -6,13 +6,13 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 16:52:29 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/29 18:13:26 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/29 18:31:01 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*tilde_expansion(char *cmd, char **env)
+static char	*tilde_expansion(char *cmd, char **env)
 {
 	char	*tmp;
 	char	*val;
@@ -27,13 +27,15 @@ char	*tilde_expansion(char *cmd, char **env)
 	return (cmd);
 }
 
-char	*var_expansion(char *cmd, char **env)
+static char	*var_expansion(char *cmd, char **env)
 {
+	char	*dol;
 	char	*tmp;
 	char	*var;
 	char	*val;
 
-	if (ft_strchr(cmd, '$') && *(ft_strchr(cmd, '$') + 1) != '\0')
+	dol = ft_strchr(cmd, '$');
+	if (dol && *(dol + 1) != '?' && *(dol + 1) != '$' && *(dol + 1) != '\0')
 	{
 		tmp = cmd;
 		ft_str_copy_to(&var, ft_strchr(cmd, '$'), ' ');
@@ -45,7 +47,23 @@ char	*var_expansion(char *cmd, char **env)
 	return (cmd);
 }
 
-char	*expand_expansions(char *cmd, char **env)
+static char	*dollar_expansion(char *cmd, char **env)
+{
+	char	*dol;
+	char	*pid;
+
+	dol = ft_strchr(cmd, '$');
+	if (dol && *(dol + 1) == '$')
+	{
+		pid = ft_itoa((int)getpid());
+		cmd = ft_strreplace(cmd, "$$", pid);
+		free(pid);
+	}
+	return (cmd);
+	(void)env;
+}
+
+char		*expand_expansions(char *cmd, char **env)
 {
 	char	*tmp;
 
@@ -54,5 +72,6 @@ char	*expand_expansions(char *cmd, char **env)
 	free(tmp);
 	cmd = tilde_expansion(cmd, env);
 	cmd = var_expansion(cmd, env);
+	cmd = dollar_expansion(cmd, env);
 	return (cmd);
 }
