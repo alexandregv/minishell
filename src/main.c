@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 16:52:29 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/29 19:23:47 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/29 20:18:17 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int			main(int ac, char **av, char **env)
 	t_dlist	*cmds;
 
 	signal(SIGINT, ft_handle_sigint);
-	env = init_env(env);
+	env = init_env(ac, av, env);
 	cmds = NULL;
 	while (prompt(env) && get_next_line(0, &line) == 1)
 	{
@@ -40,6 +40,4 @@ int			main(int ac, char **av, char **env)
 	ft_free_word_table(env);
 	ft_dlist_del(&cmds, NULL);
 	return (0);
-	(void)ac;
-	(void)av;
 }

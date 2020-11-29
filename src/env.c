@@ -6,13 +6,13 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 00:35:02 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/29 19:09:07 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/29 20:37:28 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**set_last_exit_code(int ret, char ***env)
+char		**set_last_exit_code(int ret, char ***env)
 {
 	char	*str;
 
@@ -22,7 +22,7 @@ char	**set_last_exit_code(int ret, char ***env)
 	return (*env);
 }
 
-char	*ft_getenv(char **env, char *var)
+char		*ft_getenv(char **env, char *var)
 {
 	unsigned int n;
 
@@ -36,7 +36,19 @@ char	*ft_getenv(char **env, char *var)
 	return (NULL);
 }
 
-char	**init_env(char **env)
+static char	**set_standard_vars(int ac, char **av, char ***env)
+{
+	char **new;
+
+	new = *env;
+	if (ac >= 1)
+	{
+		new = ft_setenv(env, "SHELL", av[0]);
+	}
+	return (new);
+}
+
+char		**init_env(int ac, char **av, char **env)
 {
 	char	**new;
 	size_t	size;
@@ -53,5 +65,6 @@ char	**init_env(char **env)
 		new[i] = ft_strdup(env[i]);
 		++i;
 	}
+	new = set_standard_vars(ac, av, &new);
 	return (new);
 }
