@@ -1,48 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   expansions.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 16:52:29 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/29 16:07:02 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/29 16:05:03 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-pid_t	g_pid;
-char	**g_env;
-
-int			main(int ac, char **av, char **env)
+char	*expand_expansions(char *cmd, char **env)
 {
-	char	*line;
-	int		ret;
-	char	**chained_cmds;
-	t_dlist	*cmds;
+	char	*tmpline;
+	char	*var;
+	char	*val;
 
-	g_pid = -1;
-	signal(SIGINT, ft_handle_sigint);
-	ret = 0;
-	env = init_env(env);
-	g_env = env;
-	cmds = NULL;
-	while (prompt(env) && get_next_line(0, &line) == 1)
+	tmpline = cmd;
+	cmd = ft_epur_str(cmd);
+	free(tmpline);
+	if (ft_strchr(cmd, '~'))
 	{
-		if (!line)
-			continue ;
-		g_env = env;
-		chained_cmds = ft_splitu(line, ";");
-		ret = exec_cmds(&cmds, chained_cmds, &env);
-		free(line);
-		ft_free_word_table(chained_cmds);
-		if (ret >= 258)
-			break ;
+		tmpline = cmd;
+		val = ft_getenv(env, "HOME");
+		cmd = ft_strreplace(cmd, "~", val ? val : "");
+		free(tmpline);
 	}
-	ft_free_word_table(env);
-	ft_dlist_del(&cmds, NULL);
-	return (0);
-	(void)ac;
-	(void)av;
+	if (ft_strchr(cmd, '$'))
+	{
+		tmpline = cmd;
+		ft_str_copy_to(&var, ft_strchr(cmd, '$'), ' ');
+		val = ft_getenv(env, var + 1);
+		cmd = ft_strreplace(cmd, var, val ? val : "");
+		free(var);
+		free(tmpline);
+	}
+	return (cmd);
 }

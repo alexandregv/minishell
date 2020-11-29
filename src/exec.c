@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 17:19:59 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/28 21:28:38 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/29 16:07:19 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,42 @@ static int	print_msg(char *msg, char *path, int ret)
 	free(path);
 	ft_putendl_fd(join, 2);
 	free(join);
+	return (ret);
+}
+
+int			exec_cmds(t_dlist **cmds, char **chained_cmds, char ***env)
+{
+	char	**path;
+	char	**parsed_argv;
+	int		i;
+	int		ret;
+
+	i = 0;
+	while (chained_cmds[i])
+	{
+		chained_cmds[i] = expand_expansions(chained_cmds[i], *env);
+		if (i > 0 && ft_strlen(chained_cmds[i]) > 0)
+			ft_putchar('\n');
+		ft_dlist_push_back(cmds, ft_dlist_new(chained_cmds[i],
+					ft_strlen(chained_cmds[i]) + 1, 1));
+		if (!(path = ft_parse_path(*env)))
+			return (EXIT_FAILURE);
+		parsed_argv = ft_splitu(chained_cmds[i++], " ");
+		if ((ret = check_builtins(path, parsed_argv, env)) == 256)
+			ret = exec_cmd(path, parsed_argv, *env);
+		ft_free_word_table(parsed_argv);
+		ft_free_word_table(path);
+		if (ret >= 258)
+			break ;
+		if (ret == 0)
+			ft_putstr_tty("[\033[32m");
+		else if (ret == 257)
+			continue ;
+		else
+			ft_putstr_tty("[\033[31m");
+		ft_putnbr_tty(ret);
+		ft_putstr_tty("\033[39m] ");
+	}
 	return (ret);
 }
 
