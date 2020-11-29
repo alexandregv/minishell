@@ -6,14 +6,14 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 16:52:29 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/29 16:07:02 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/29 16:16:40 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-pid_t	g_pid;
-char	**g_env;
+pid_t	g_pid = -1;
+char	**g_env = (char *[]) { NULL };
 
 int			main(int ac, char **av, char **env)
 {
@@ -22,11 +22,8 @@ int			main(int ac, char **av, char **env)
 	char	**chained_cmds;
 	t_dlist	*cmds;
 
-	g_pid = -1;
 	signal(SIGINT, ft_handle_sigint);
-	ret = 0;
 	env = init_env(env);
-	g_env = env;
 	cmds = NULL;
 	while (prompt(env) && get_next_line(0, &line) == 1)
 	{
