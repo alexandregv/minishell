@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 19:31:20 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/29 19:42:08 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/29 19:44:40 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ static int	check_2(t_dlist *cmds, char **path, char **argv, char ***env)
 		ret = where_builtin(path, argv);
 	else if (!ft_strcmp(argv[0], "pwd"))
 		ret = pwd_builtin();
+	else if (!ft_strcmp(argv[0], "history"))
+		ret = history_builtin(cmds);
 	return (ret);
 	(void)cmds;
 	(void)env;

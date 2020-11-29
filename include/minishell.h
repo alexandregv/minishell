@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 00:35:58 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/29 19:32:45 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/29 19:49:04 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,6 @@ char	*expand_expansions(char *cmd, char **env);
 int		exec_cmds(int ret, t_dlist **cmds, char **chained_cmds, char ***env);
 int		print_error(char *msg, char *path, int ret);
 char	**set_last_exit_code(int ret, char ***env);
+int		history_builtin(t_dlist *cmds);
 
 #endif
