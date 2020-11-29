@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 16:52:29 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/28 20:43:05 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/29 15:33:17 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,35 @@
 pid_t	g_pid;
 char	**g_env;
 
+static char	*expand_expansions(char *cmd, char **env)
+{
+	char	*tmpline;
+	char	*var;
+
+	tmpline = cmd;
+	cmd = ft_epur_str(cmd);
+	free(tmpline);
+	if (ft_strchr(cmd, '~'))
+	{
+		tmpline = cmd;
+		cmd = ft_strreplace(cmd, "~", ft_getenv(env, "HOME"));
+		free(tmpline);
+	}
+	if (ft_strchr(cmd, '$'))
+	{
+		tmpline = cmd;
+		ft_str_copy_to(&var, ft_strchr(cmd, '$'), ' ');
+		cmd = ft_strreplace(cmd, var,
+				ft_getenv(env, var + 1) ? ft_getenv(env, var + 1) : "");
+		free(var);
+		free(tmpline);
+	}
+	return (cmd);
+}
+
 int			main(int ac, char **av, char **env)
 {
 	char	*line;
-	char	*tmpline;
 	char	**parsed_argv;
 	char	**path;
 	int		ret;
@@ -28,7 +53,6 @@ int			main(int ac, char **av, char **env)
 
 	g_pid = -1;
 	signal(SIGINT, ft_handle_sigint);
-
 	ret = 0;
 	env = init_env(env);
 	g_env = env;
@@ -42,26 +66,7 @@ int			main(int ac, char **av, char **env)
 		i = 0;
 		while (chained_cmds[i])
 		{
-			tmpline = chained_cmds[i];
-			chained_cmds[i] = ft_epur_str(chained_cmds[i]);
-			free(tmpline);
-			if (ft_strchr(chained_cmds[i], '~'))
-			{
-				tmpline = chained_cmds[i];
-				chained_cmds[i] = ft_strreplace(chained_cmds[i], "~",
-						ft_getenv(env, "HOME"));
-				free(tmpline);
-			}
-			if (ft_strchr(chained_cmds[i], '$'))
-			{
-				tmpline = chained_cmds[i];
-				char *var;
-				ft_str_copy_to(&var, ft_strchr(chained_cmds[i], '$'), ' ');
-				chained_cmds[i] = ft_strreplace(chained_cmds[i], var,
-						ft_getenv(env, var + 1) ? ft_getenv(env, var + 1) : "");
-				free(var);
-				free(tmpline);
-			}
+			chained_cmds[i] = expand_expansions(chained_cmds[i], env);
 			if (i > 0 && ft_strlen(chained_cmds[i]) > 0)
 				ft_putchar('\n');
 			ft_dlist_push_back(&cmds, ft_dlist_new(chained_cmds[i],
