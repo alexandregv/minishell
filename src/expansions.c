@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 16:52:29 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/29 18:08:49 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/29 18:13:26 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*var_expansion(char *cmd, char **env)
 	char	*var;
 	char	*val;
 
-	if (ft_strchr(cmd, '$'))
+	if (ft_strchr(cmd, '$') && *(ft_strchr(cmd, '$') + 1) != '\0')
 	{
 		tmp = cmd;
 		ft_str_copy_to(&var, ft_strchr(cmd, '$'), ' ');
