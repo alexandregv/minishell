@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 17:19:59 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/30 01:16:16 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/30 17:34:03 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ int			ft_fork(char *fullpath, char **argv, char **env)
 	int		ret;
 
 	ret = 0;
-	pid = fork();
-	if (pid < 0)
+	if ((pid = fork()) < 0)
 		print_error("fork() failed, please check max process limits",
 			ft_strdup(""), -1);
-	if (pid > 0)
+	else if (pid > 0)
 	{
 		g_pid = pid;
-		wait(&ret);
-		g_pid = -1;
+		waitpid(-1, &ret, WUNTRACED);
+		if (!WIFSTOPPED(ret))
+			g_pid = -1;
 		free(fullpath);
 		return (display_sig(ret));
 	}

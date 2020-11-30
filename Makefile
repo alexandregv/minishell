@@ -6,7 +6,7 @@
 #    By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/01 20:31:11 by aguiot--          #+#    #+#              #
-#    Updated: 2020/11/29 19:49:14 by aguiot--         ###   ########.fr        #
+#    Updated: 2020/11/30 17:11:48 by aguiot--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ SRC_PATH	= src/
 SRC_NAME	= main env prompt path signals exec expansions print builtins \
 			  builtins/echo builtins/cd builtins/env builtins/setenv \
 			  builtins/unsetenv builtins/exit builtins/where \
-			  builtins/pwd builtins/history
+			  builtins/pwd builtins/history builtins/fg
 
 # Object files
 OBJ_PATH	= obj/

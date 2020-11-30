@@ -1,35 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   history.c                                          :+:      :+:    :+:   */
+/*   fg.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/29 19:44:59 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/30 17:07:19 by aguiot--         ###   ########.fr       */
+/*   Created: 2020/11/30 17:12:01 by aguiot--          #+#    #+#             */
+/*   Updated: 2020/11/30 17:28:03 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_dlist	*print_node(int i, t_dlist *node)
+int	fg_builtin()
 {
-	char	*itoa;
-
-	if (node->next != NULL)
-	{
-		itoa = ft_itoa(i);
-		ft_putchar(' ');
-		ft_putstr(itoa);
-		ft_putstr("  ");
-		ft_putendl(node->content);
-		free(itoa);
-	}
-	return (node);
-}
-
-int				history_builtin(t_dlist *cmds)
-{
-	ft_dlist_mapi(cmds, &print_node, 1);
+	kill(g_pid, SIGCONT);
+	waitpid(g_pid, NULL, 0);
 	return (0);
 }

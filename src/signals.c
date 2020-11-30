@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 17:07:32 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/30 02:45:36 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/30 17:34:50 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ static void	ft_handle_sig(int sig)
 		ft_putchar('\n');
 		if (g_pid == -1)
 			prompt(g_env);
-		else
-			kill(g_pid, sig);
+	}
+	else if (sig == SIGTSTP || sig == SIGSTOP)
+	{
+		ft_putchar('\n');
 	}
 }
 
@@ -29,6 +31,7 @@ void		ft_signal(void)
 {
 	signal(SIGINT, ft_handle_sig);
 	signal(SIGQUIT, ft_handle_sig);
+	signal(SIGTSTP, ft_handle_sig);
 }
 
 int			display_sig(int ret)
@@ -49,6 +52,11 @@ int			display_sig(int ret)
 			ft_putendl_fd("Timed out", 2);
 		else if (WTERMSIG(ret) == SIGABRT)
 			ft_putendl_fd("Aborted", 2);
+	}
+	else if (WIFSTOPPED(ret))
+	{
+		if (WSTOPSIG(ret) == SIGTSTP)
+			ft_putendl_fd("Stopped", 2);
 	}
 	return (1);
 }
