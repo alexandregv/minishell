@@ -6,12 +6,12 @@
 #    By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/01 20:31:11 by aguiot--          #+#    #+#              #
-#    Updated: 2020/11/30 17:11:48 by aguiot--         ###   ########.fr        #
+#    Updated: 2020/11/30 18:10:20 by aguiot--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= minishell
-CC		= clang
+CC			= clang
 
 # Compiler & Preprocessor flags
 CFLAGS		+= -Wall -Werror -Wextra
@@ -32,7 +32,7 @@ SRC_NAME	= main env prompt path signals exec expansions print builtins \
 # Object files
 OBJ_PATH	= obj/
 OBJ_NAME	= $(addsuffix .o, $(SRC_NAME))
-OBJ		= $(addprefix $(OBJ_PATH), $(OBJ_NAME))
+OBJ			= $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
 # Library
 LIB_PATH	= libft
@@ -55,9 +55,9 @@ HIDE_ERR	= 2> /dev/null || true
 
 # Multi platforms 
 ECHO 		= echo
-ifeq ($(shell uname),Linux)
-	ECHO	+= -e
-endif
+#ifeq ($(shell uname),Linux)
+#	ECHO	+= -e
+#endif
 
 GREP		= grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}
 
