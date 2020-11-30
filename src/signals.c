@@ -6,23 +6,32 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 17:07:32 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/28 17:27:12 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/30 02:45:36 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <signal.h>
 #include "minishell.h"
 
-void	ft_handle_sigint(int sig)
+static void	ft_handle_sig(int sig)
 {
-	ft_putchar('\n');
-	if (g_pid == -1)
-		prompt(g_env);
-	else
-		kill(g_pid, sig);
+	if (sig == SIGINT || sig == SIGQUIT)
+	{
+		ft_putchar('\n');
+		if (g_pid == -1)
+			prompt(g_env);
+		else
+			kill(g_pid, sig);
+	}
 }
 
-int		display_sig(int ret)
+void		ft_signal(void)
+{
+	signal(SIGINT, ft_handle_sig);
+	signal(SIGQUIT, ft_handle_sig);
+}
+
+int			display_sig(int ret)
 {
 	if (WIFEXITED(ret))
 		return (WEXITSTATUS(ret));

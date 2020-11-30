@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 00:35:58 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/29 20:18:10 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/30 02:15:18 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	**ft_unsetenv(char **env, char *var);
 int		check_builtins(t_dlist *cmds, char **path, char **argv, char ***env);
 char	*from_path(char **path, char *file);
 int		display_sig(int ret);
-void	ft_handle_sigint(int sig);
+void	ft_signal(void);
 int		ft_fork(char *fullpath, char **argv, char **env);
 int		exec_cmd(char **path, char **argv, char **env);
 char	*expand_expansions(char *cmd, char **env);

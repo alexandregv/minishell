@@ -22,7 +22,7 @@ int			main(int ac, char **av, char **env)
 	char	**chained_cmds;
 	t_dlist	*cmds;
 
-	signal(SIGINT, ft_handle_sigint);
+	ft_signal();
 	env = init_env(ac, av, env);
 	g_env = env;
 	cmds = NULL;
