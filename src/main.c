@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 16:52:29 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/30 01:16:41 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/30 02:20:50 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int			main(int ac, char **av, char **env)
 
 	signal(SIGINT, ft_handle_sigint);
 	env = init_env(ac, av, env);
+	g_env = env;
 	cmds = NULL;
 	while (prompt(env) && get_next_line(0, &line) == 1)
 	{
