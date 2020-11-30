@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "libft.h"
 
 typedef struct	s_string
@@ -12,7 +13,7 @@ static void	print_node(t_list *node)
 	write(1, ((t_string *)node->content)->string, ft_strlen(((t_string *)node->content)->string));
 }
 
-int	main(void)
+int	mmmmmmain(void)
 {
 	t_list		*list = NULL;
 	t_list		*head = NULL;
@@ -67,5 +68,34 @@ int	main(void)
 	ft_putnbr(ft_list_size(head));
 	
 	ft_list_del(&head, NULL);
+	return (0);
+}
+
+void	ft_test(char ***tab)
+{
+	ft_free_word_table(tab);
+	*tab = (char **)malloc(sizeof(char *) * (4 + 1));
+	(*tab)[0] = ft_strdup("changed 1");
+	(*tab)[1] = ft_strdup("changed 2");
+	(*tab)[2] = ft_strdup("changed 3");
+	(*tab)[3] = ft_strdup("changed 4");
+	(*tab)[4] = NULL;
+}
+
+int	main(void)
+{
+	char **tab;
+
+	tab = (char **)malloc(sizeof(char *) * (4 + 1));
+	tab[0] = ft_strdup("ligne 1");
+	tab[1] = ft_strdup("ligne 2");
+	tab[2] = ft_strdup("ligne 3");
+	tab[3] = ft_strdup("ligne 4");
+	tab[4] = NULL;
+
+	ft_test(&tab);
+
+	ft_print_word_table(tab);
+	ft_free_word_table(&tab);
 	return (0);
 }
