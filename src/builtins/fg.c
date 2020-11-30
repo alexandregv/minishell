@@ -6,13 +6,13 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 17:12:01 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/30 17:28:03 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/30 17:57:45 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	fg_builtin()
+int	fg_builtin(void)
 {
 	kill(g_pid, SIGCONT);
 	waitpid(g_pid, NULL, 0);

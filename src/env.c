@@ -6,10 +6,11 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 00:35:02 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/30 01:56:18 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/30 17:57:18 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <pwd.h>
 #include "minishell.h"
 
 char		**set_last_exit_code(int ret, char ***env)
@@ -36,16 +37,19 @@ char		*ft_getenv(char **env, char *var)
 	return (NULL);
 }
 
-static char	**set_standard_vars(int ac, char **av, char ***env)
+static char	**set_standard_vars(char ***env)
 {
-	char	**new;
-	char	actualpath[PATH_MAX + 1];
-	char	*shlvl_str;
-	int		shlvl_int;
+	char			**new;
+	uid_t			uid;
+	struct passwd	*user;
+	char			*shlvl_str;
+	int				shlvl_int;
 
 	new = *env;
-	if (ac >= 1)
-		new = ft_setenv(env, "SHELL", realpath(av[0], actualpath));
+	uid = getuid();
+	user = getpwuid(uid);
+	new = ft_setenv(env, "USER", user->pw_name);
+	new = ft_setenv(&new, "SHELL", user->pw_shell);
 	shlvl_str = ft_getenv(*env, "SHLVL");
 	shlvl_int = shlvl_str == NULL ? 1 : ft_atoi(shlvl_str) + 1;
 	shlvl_str = ft_itoa(shlvl_int);
@@ -71,6 +75,8 @@ char		**init_env(int ac, char **av, char **env)
 		new[i] = ft_strdup(env[i]);
 		++i;
 	}
-	new = set_standard_vars(ac, av, &new);
+	new = set_standard_vars(&new);
 	return (new);
+	(void)ac;
+	(void)av;
 }
