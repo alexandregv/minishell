@@ -40,12 +40,17 @@ static char	**set_standard_vars(int ac, char **av, char ***env)
 {
 	char	**new;
 	char	actualpath[PATH_MAX + 1];
+	char	*shlvl_str;
+	int		shlvl_int;
 
 	new = *env;
 	if (ac >= 1)
-	{
 		new = ft_setenv(env, "SHELL", realpath(av[0], actualpath));
-	}
+	shlvl_str = ft_getenv(*env, "SHLVL");
+	shlvl_int = shlvl_str == NULL ? 1 : ft_atoi(shlvl_str) + 1;
+	shlvl_str = ft_itoa(shlvl_int);
+	new = ft_setenv(&new, "SHLVL", shlvl_str);
+	free(shlvl_str);
 	return (new);
 }
 
