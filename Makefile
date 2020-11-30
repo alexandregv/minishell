@@ -61,6 +61,9 @@ endif
 
 GREP		= grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}
 
+#NORMINETTE	= norminette
+NORMINETTE	= ~/.norminette/norminette.rb
+
 all: $(NAME)
 
 $(NAME): $(LIB_FILE) $(OBJ)
@@ -93,6 +96,6 @@ fclean: clean
 re: fclean all
 
 norm:
-	@norminette | $(GREP) -v "Not a valid file" | $(GREP) "Error\|Warning" -B 1 || true
+	@$(NORMINETTE) include/ src/ libft/include/ libft/src/ | $(GREP) -v 'Not a valid file' | $(GREP) -EB1 'Error|Warning' || true
 
 .PHONY: clean fclean all re norm
