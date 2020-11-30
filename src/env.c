@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 00:35:02 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/29 20:41:44 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/30 01:56:18 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char		*ft_getenv(char **env, char *var)
 {
 	unsigned int n;
 
-	while (*env)
+	while (env && *env)
 	{
 		n = ft_strchr(*env, '=') - *env;
 		if (ft_strncmp(*env, var, n) == 0 && ft_strlen(var) == n)

@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 00:35:29 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/28 21:04:11 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/30 01:11:04 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,6 @@ char		**ft_setenv(char ***env, char *var, char *val)
 		new_env[j] = ft_strjoin3(var, "=", val);
 		new_env[++j] = NULL;
 	}
-	ft_free_word_table(*env);
+	ft_free_word_table(env);
 	return (new_env);
 }
