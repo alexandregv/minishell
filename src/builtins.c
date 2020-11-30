@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 19:31:20 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/30 17:13:12 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/30 19:13:09 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int			check_builtins(t_dlist *cmds, char **path, char **argv, char ***env)
 		++argc;
 	if (!argv[0])
 		return (257);
-	ret = 256;
 	ret = check_1(cmds, path, argv, env);
 	if (ret == 256)
 		ret = check_2(cmds, path, argv, env);

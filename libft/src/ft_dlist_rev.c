@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 20:17:01 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/19 05:06:50 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/30 19:13:30 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,5 @@ void	ft_dlist_rev(t_dlist **head)
 		curr->prev = temp;
 		curr = temp;
 	}
-	temp = *head;
 	*head = last;
 }

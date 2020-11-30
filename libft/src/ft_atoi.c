@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 12:04:38 by aguiot--          #+#    #+#             */
-/*   Updated: 2018/11/19 18:22:30 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/11/30 19:08:37 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int					ft_atoi(char const *s)
 	long long int	k;
 
 	nb = 0;
-	while (s && *s && ft_isspace(*s))
+	while (ft_isspace(*s))
 		++s;
 	k = (*s == '-' ? -1 : 1);
 	if (*s == '-' || *s == '+')
