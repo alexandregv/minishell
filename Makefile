@@ -6,7 +6,7 @@
 #    By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/01 20:31:11 by aguiot--          #+#    #+#              #
-#    Updated: 2020/11/30 18:10:20 by aguiot--         ###   ########.fr        #
+#    Updated: 2020/11/30 18:12:14 by aguiot--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,6 +68,7 @@ all: $(NAME)
 
 $(NAME): $(LIB_FILE) $(OBJ)
 	$(CC) $(OBJ) $(LIB_FLAGS) -o $(NAME)
+	@$(ERASE)
 	@$(ERASE)
 	@$(ERASE)
 	@$(ECHO) "$(NAME)\t[$(C_SUCCESS)✅ $(C_RESET)]"

@@ -6,7 +6,7 @@
 #    By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/18 16:51:51 by aguiot--          #+#    #+#              #
-#    Updated: 2020/11/29 19:59:56 by aguiot--         ###   ########.fr        #
+#    Updated: 2020/11/30 18:13:15 by aguiot--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -138,9 +138,9 @@ HIDE_ERR	= 2> /dev/null || true
 
 # Multi platforms 
 ECHO 		= echo
-ifeq ($(shell uname),Linux)
-	ECHO	+= -e
-endif
+#ifeq ($(shell uname),Linux)
+#	ECHO	+= -e
+#endif
 
 all: $(NAME)
 
