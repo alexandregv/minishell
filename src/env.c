@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 00:35:02 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/30 17:57:18 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/12/01 20:34:39 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static char	**set_standard_vars(char ***env)
 	user = getpwuid(uid);
 	new = ft_setenv(env, "USER", user->pw_name);
 	new = ft_setenv(&new, "SHELL", user->pw_shell);
-	shlvl_str = ft_getenv(*env, "SHLVL");
+	shlvl_str = ft_getenv(new, "SHLVL");
 	shlvl_int = shlvl_str == NULL ? 1 : ft_atoi(shlvl_str) + 1;
 	shlvl_str = ft_itoa(shlvl_int);
 	new = ft_setenv(&new, "SHLVL", shlvl_str);
