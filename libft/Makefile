@@ -6,12 +6,12 @@
 #    By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/18 16:51:51 by aguiot--          #+#    #+#              #
-#    Updated: 2020/11/30 18:13:15 by aguiot--         ###   ########.fr        #
+#    Updated: 2020/12/01 20:25:02 by aguiot--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= libft.a
-CC			= gcc
+CC			= clang
 
 # Compiler & Preprocessor flags
 CFLAGS		+= -Wall -Werror -Wextra

@@ -6,7 +6,7 @@
 #    By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/01 20:31:11 by aguiot--          #+#    #+#              #
-#    Updated: 2020/11/30 18:12:14 by aguiot--         ###   ########.fr        #
+#    Updated: 2020/12/01 20:25:17 by aguiot--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,7 +67,7 @@ NORMINETTE	= ~/.norminette/norminette.rb
 all: $(NAME)
 
 $(NAME): $(LIB_FILE) $(OBJ)
-	$(CC) $(OBJ) $(LIB_FLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(LIB_FLAGS) -o $(NAME)
 	@$(ERASE)
 	@$(ERASE)
 	@$(ERASE)
