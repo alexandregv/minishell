@@ -6,7 +6,7 @@
 #    By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/18 16:51:51 by aguiot--          #+#    #+#              #
-#    Updated: 2020/12/01 20:25:02 by aguiot--         ###   ########.fr        #
+#    Updated: 2020/12/02 02:46:18 by aguiot--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -104,7 +104,8 @@ SRC_NAME	= \
 			ft_putchar_tty		\
 			ft_putchar_fd_tty	\
 			ft_splitu			\
-			ft_dlist_mapi
+			ft_dlist_mapi		\
+			ft_str_copy_while
 
 #			ft_dlist_get_at		ft_dlist_get_index	ft_dlist_iter		\
 #			ft_dlist_last		ft_dlist_msort		ft_dlist_new		\
