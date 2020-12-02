@@ -6,11 +6,16 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 16:52:29 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/29 19:11:39 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/12/02 03:21:48 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	is_alnum_or_questionmark(char c)
+{
+	return (ft_isalnum(c) || c == '?');
+}
 
 static char	*tilde_expansion(char *cmd, char **env)
 {
@@ -30,19 +35,24 @@ static char	*tilde_expansion(char *cmd, char **env)
 static char	*var_expansion(char *cmd, char **env)
 {
 	char	*dol;
-	char	*tmp;
+	char	*tmp1;
+	char	*tmp2;
 	char	*var;
 	char	*val;
 
 	dol = ft_strchr(cmd, '$');
 	if (dol && *(dol + 1) != '$' && *(dol + 1) != '\0')
 	{
-		tmp = cmd;
-		ft_str_copy_to(&var, ft_strchr(cmd, '$'), ' ');
-		val = ft_getenv(env, var + 1);
+		tmp1 = cmd;
+		ft_str_copy_while(&var, ft_strchr(cmd, '$') + 1,
+			&is_alnum_or_questionmark);
+		val = ft_getenv(env, var);
+		tmp2 = var;
+		var = ft_strjoinfree(ft_strdup("$"), var, ft_strlen(var));
 		cmd = ft_strreplace(cmd, var, val ? val : "");
 		free(var);
-		free(tmp);
+		free(tmp1);
+		free(tmp2);
 	}
 	return (cmd);
 }
