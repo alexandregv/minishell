@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 00:35:29 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/30 01:11:04 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/12/02 02:38:17 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,9 @@ static int	usage(void)
 
 int			setenv_builtin(int argc, char **argv, char ***env)
 {
-	char	*var;
-	char	*val;
-	char	*eq;
-
-	if (argc >= 3)
-		val = argv[2];
-	else if (argc == 2)
-	{
-		eq = ft_strchr(argv[1], '=');
-		if (eq == NULL)
-			return (usage());
-		val = eq + 1;
-		*eq = '\0';
-	}
-	else
+	if (argc < 3)
 		return (usage());
-	var = argv[1];
-	*env = ft_setenv(env, var, val);
+	*env = ft_setenv(env, argv[1], argv[2]);
 	return (0);
 }
 
