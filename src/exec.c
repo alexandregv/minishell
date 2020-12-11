@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 17:19:59 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/11/30 17:34:03 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/12/11 18:53:50 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ int			ft_fork(char *fullpath, char **argv, char **env)
 
 static char	**parse_arg(char **chained_cmds, int i, t_dlist **cmds, char ***env)
 {
-	chained_cmds[i] = expand_expansions(chained_cmds[i], *env);
 	if (i > 0 && ft_strlen(chained_cmds[i]) > 0)
 		ft_putchar('\n');
 	ft_dlist_push_back(cmds, ft_dlist_new(chained_cmds[i],
 				ft_strlen(chained_cmds[i]) + 1, 1));
+	chained_cmds[i] = expand_expansions(chained_cmds[i], *env);
 	return (ft_splitu(chained_cmds[i], " "));
 }
 
