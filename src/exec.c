@@ -6,11 +6,18 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 17:19:59 by aguiot--          #+#    #+#             */
-/*   Updated: 2020/12/11 18:53:50 by aguiot--         ###   ########.fr       */
+/*   Updated: 2020/12/13 15:52:30 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	print_ret(int ret)
+{
+	ft_putstr_tty(ret == 0 ? "[\033[32m" : "[\033[31m");
+	ft_putnbr_tty(ret);
+	ft_putstr_tty("\033[39m] ");
+}
 
 int			ft_fork(char *fullpath, char **argv, char **env)
 {
@@ -42,7 +49,7 @@ int			ft_fork(char *fullpath, char **argv, char **env)
 
 static char	**parse_arg(char **chained_cmds, int i, t_dlist **cmds, char ***env)
 {
-	if (i > 0 && ft_strlen(chained_cmds[i]) > 0)
+	if (i > 0 && ft_strlen(chained_cmds[i]) > 0 && isatty(0) && isatty(1))
 		ft_putchar('\n');
 	ft_dlist_push_back(cmds, ft_dlist_new(chained_cmds[i],
 				ft_strlen(chained_cmds[i]) + 1, 1));
@@ -71,9 +78,8 @@ int			exec_cmds(int ret, t_dlist **cmds, char **chained_cmds, char ***env)
 			break ;
 		else if (ret == 257)
 			continue ;
-		ft_putstr_tty(ret == 0 ? "[\033[32m" : "[\033[31m");
-		ft_putnbr_tty(ret);
-		ft_putstr_tty("\033[39m] ");
+		if (isatty(0) && isatty(1))
+			print_ret(ret);
 	}
 	return (ret);
 }
